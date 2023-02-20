@@ -1,0 +1,101 @@
+@charset "UTF-8";
+body {
+	margin: 0  auto;
+	text-align: center;
+	min-width: 1280px;
+}
+ul { list-style: none; align-items: center; padding:0 ;}
+a { cursor: pointer; }
+a:link, a:visited { text-decoration: none;  color:inherit }
+
+#container { padding: 20px 0 }
+table {
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+table th, table td { padding: 6px 10px; border:1px solid #b0b0b0 }
+table th { background-color: #f6f6f6 }
+table tr { height: 46px  }
+table.tb-list tr { height: 38px }
+table td a:hover { color: #0730fa; font-weight:bold;  text-decoration: underline; }
+
+input {
+	height: 30px;
+	padding: 0 10px;
+	font-size: 16px;
+	border: 1px solid #b0b0b0;
+}
+input[type=radio] {
+	width: 18px;
+	margin: 0 5px 2px;
+	vertical-align: middle;
+}
+label:not(:last-child) { margin-right: 20px }
+
+select {
+	border: 1px solid #b0b0b0;
+	height: 32px;
+	cursor: pointer;
+	font-size: 16px;
+	padding-left: 10px;
+}
+input:focus, select:focus { border-color:#3367d6; outline: none; }
+
+.btnSet { margin: 20px auto; }
+
+a.btn-fill, a.btn-empty { 
+/* 	height: 28px; */
+	padding: 3px 15px;
+	border: 1px solid #3367d6;
+	border-radius: 3px;
+	height: 24px;
+    display: inline-block;
+}
+
+a.btn-empty{
+	background-color: #fff;
+	color: #3367d6;
+}
+a.btn-fill{
+	background-color: #3367d6;
+	color: #fff;
+}
+
+#list-top {
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+#list-top ul { display: flex; }
+#list-top ul li:not(:first-child) { margin-left: 5px }
+
+
+
+.w-pct80 { width: 80% }
+.w-pct70 { width: 70% }
+.w-pct60 { width: 60% }
+.w-pct50 { width: 50% }
+.w-pct40 { width: 40% }
+
+.w-px40 { width: 40px }
+.w-px60 { width: 60px }
+.w-px80 { width: 80px }
+.w-px100 { width: 100px }
+.w-px120 { width: 120px }
+.w-px140 { width: 140px }
+.w-px160 { width: 160px }
+.w-px180 { width: 180px }
+.w-px200 { width: 200px }
+.w-px220 { width: 220px }
+.w-px250 { width: 250px }
+.w-px300 { width: 300px }
+.w-px350 { width: 350px }
+.w-px400 { width: 400px }
+.w-px450 { width: 450px }
+.w-px500 { width: 500px }
+.w-px600 { width: 600px }
+.w-px800 { width: 800px }
+.w-px1000 { width: 1000px }
+.w-px1200 { width: 1200px }
+
+

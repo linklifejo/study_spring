@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="MyProject_App"/>
+<aop-project name="iot"/>
+<aop-project name="web"/>
+<aop-project name="MyProjectX"/>
+</aop-reference-model>

@@ -1,0 +1,37 @@
+new  클래스명();   개발자가 필요시점에 객체를 생성
+--> spring 이 객체를 알아서 생성해둔다 --> 스프링컨테이너에서 관리한다
+주소값을 담을 변수를 선언하면 spring이 해당 객체의 주소를 찾아서 담아준다
+
+IoC(Inversion Of Control) : 
+: 스프링이 객체를 생성하고 관리하는 형태로
+  제어권을 개발자가 아니라 스프링프레임웤이 갖도록 제어권을 스프링에게 위임한다
+  
+DI(Dependency Injection:의존성주입)
+: 스프링이 생성한 객체를 주입받아 사용하는 구조를 말한다  
+  
+* 컨트롤러 생성
+1. 컨트롤러 객체를 생성해서 스프링컨테이너에 관리되게 @Controller 을 지정
+2. 사용자 요청에 대해 처리할 메소드선언
+   - @RequestMapping("요청uri")
+   - 비지니스로직
+     화면에 출력할 값이 있는 경우 Model에 attribute로 담는다
+   - 응답화면지정 : return 화면명;  화면명은 .jsp 를 생략해야 한다
+   
+화면으로 응답하고 화면에 데이터전달하기
+1. Model 객체 사용
+   Model에 attribute로 담는다
+   return "화면명";
+2. ModelAndView 객체 사용
+   
+   
+* 주소창을 통해 전달되는 파라미터를 접근하는 방법
+1. HttpServletRequest 객체를 이용
+2. @RequestParam 을 이용
+3. 데이터객체(DTO, VO)를 이용
+* 주소창의 경로를 통해 전달되는 값을 접근하는 방법
+@PathVariable 을 이용
+
+
+* 화면연결방식 - forward, redirect
+   
+  
