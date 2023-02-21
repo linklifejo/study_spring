@@ -11,8 +11,7 @@ public class HrServiceImpl implements HrService {
 	
 	@Override
 	public void employee_insert(EmployeeVO vo) {
-		// TODO Auto-generated method stub
-
+		dao.employee_insert(vo);
 	}
 
 	@Override
@@ -27,8 +26,7 @@ public class HrServiceImpl implements HrService {
 
 	@Override
 	public void employee_update(EmployeeVO vo) {
-		// TODO Auto-generated method stub
-
+		dao.employee_update(vo);
 	}
 
 	@Override
@@ -54,6 +52,11 @@ public class HrServiceImpl implements HrService {
 	@Override
 	public List<JobVO> hr_job_list() {
 		return dao.hr_job_list();
+	}
+
+	@Override
+	public List<EmployeeVO> hr_manager_list() {
+		return dao.hr_manager_list();
 	}
 
 }

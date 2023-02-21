@@ -19,6 +19,40 @@ import hr.JobVO;
 public class HrController {
 	@Autowired private HrServiceImpl service;
 	
+	//신규사원등록저장처리 요청
+	@RequestMapping("/insert.hr")
+	public String regist(EmployeeVO vo) {
+		//화면에서 입력한 정보를 DB에 신규저장한다
+		service.employee_insert(vo);
+		//응답화면연결 - 사원목록
+		return "redirect:list.hr";
+	}
+	
+	//신규사원등록화면 요청
+	@RequestMapping("/new.hr")
+	public String employee(Model model) {
+		//사원등록시 지정할 관리자/부서/업무목록 을 DB에서 조회해와
+		//등록화면에 출력할 수 있도록 Model에 담는다
+		List<DepartmentVO> departments
+			= service.hr_department_list();
+		List<JobVO> jobs = service.hr_job_list();
+		List<EmployeeVO> managers = service.hr_manager_list();
+		model.addAttribute("departments", departments);
+		model.addAttribute("jobs", jobs);
+		model.addAttribute("managers", managers);
+		return "hr/regist";
+	}
+	
+	
+	//선택한 사원정보 수정저장처리  요청
+	@RequestMapping("/update.hr")
+	public String update(EmployeeVO vo) {
+		//화면에서 변경입력한 정보를 DB에 변경저장한다
+		service.employee_update(vo);
+		//응답화면연결 - 사원정보화면
+		return "redirect:info.hr?id=" + vo.getEmployee_id();
+	}
+	
 	//선택한 사원정보수정화면 요청
 	@RequestMapping("/modify.hr")
 	public String modify(Model model, int id) {

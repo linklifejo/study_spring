@@ -67,7 +67,13 @@ a.btn-fill{
 	justify-content: space-between;
 }
 #list-top ul { display: flex; }
-#list-top ul li:not(:first-child) { margin-left: 5px }
+ul li:not(:first-child) { margin-left: 5px }
+
+.center {
+	position: absolute;
+	left: 50%; top: 50%;
+	transform: translate(-50%, -50%) 
+}
 
 
 

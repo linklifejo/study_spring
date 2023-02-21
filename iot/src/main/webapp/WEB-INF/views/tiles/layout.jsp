@@ -16,6 +16,7 @@
 
 
 <title>지능형 IoT ${title}</title>
+<link rel='icon' href='imgs/hanul.ico'>
 <link rel='stylesheet' type='text/css' 
 		href='css/common.css?<%=new java.util.Date()%>'>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">		

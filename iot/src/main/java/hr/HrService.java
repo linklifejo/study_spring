@@ -14,4 +14,5 @@ public interface HrService {
 	List<DepartmentVO> employee_department_list();//부서목록조회(사원이소속된)
 	List<DepartmentVO> hr_department_list();//부서목록조회(회사의전체)
 	List<JobVO> hr_job_list();//업무목록조회(회사의전체)
+	List<EmployeeVO> hr_manager_list();//관리자목록조회(회사의전체)
 }

@@ -25,6 +25,9 @@ table tr:hover { cursor: pointer;  background-color: #f6f6f6 }
 		</select>	
 	</li>
 </ul>
+<ul>
+	<li><a class='btn-fill' href='new.hr'>신규사원등록</a></li>
+</ul>
 </div>
 </form>
 
