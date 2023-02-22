@@ -12,6 +12,20 @@
 			<li><a>시각화</a></li>
 		</ul>
 	</nav>
+	<div>
+		<ul>
+		<!-- 로그인하지 않은 경우 -->
+		<c:if test='${empty loginInfo}'>
+			<li><a class='btn-fill' href='login'>로그인</a></li>
+			<li><a class='btn-fill'>회원가입</a></li>
+		</c:if>
+		<!-- 로그인된 경우 -->
+		<c:if test='${not empty loginInfo}'>
+			<li><strong>${loginInfo.name}</strong> 님</li>
+			<li><a class='btn-fill' href='logout'>로그아웃</a></li>
+		</c:if>
+		</ul>
+	</div>
 </header>
 <style>
 header { 
@@ -21,6 +35,6 @@ header {
 }
 header nav ul { font-size: 18px; font-weight: bold; }
 header ul { display: flex; }
-header ul li:not(:first-child) { margin-left: 50px }
+header nav ul li:not(:first-child) { margin-left: 50px }
 header nav a:hover, header nav a.active { color:#0730fa  }
 </style>

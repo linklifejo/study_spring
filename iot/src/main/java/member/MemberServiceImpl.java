@@ -24,8 +24,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<MemberVO> member_list() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.member_list();
 	}
 
 	@Override
@@ -35,14 +34,28 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int member_update(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.member_update(vo);
 	}
 
 	@Override
 	public int member_delete(String id) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int member_change_pw(MemberVO vo) {
+		return dao.member_change_pw(vo);
+	}
+
+	@Override
+	public String member_salt(String id) {
+		return dao.member_salt(id);
+	}
+
+	@Override
+	public int member_id_email(MemberVO vo) {
+		return dao.member_id_email(vo);
 	}
 
 }

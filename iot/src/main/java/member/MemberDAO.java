@@ -27,8 +27,7 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public List<MemberVO> member_list() {
-		// TODO Auto-generated method stub
-		return null;
+		return sql.selectList("member.list");
 	}
 
 	@Override
@@ -38,14 +37,28 @@ public class MemberDAO implements MemberService {
 
 	@Override
 	public int member_update(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sql.update("member.update", vo);
 	}
 
 	@Override
 	public int member_delete(String id) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int member_change_pw(MemberVO vo) {
+		return sql.update("member.change_pw", vo);
+	}
+
+	@Override
+	public String member_salt(String id) {
+		return sql.selectOne("member.salt", id);
+	}
+
+	@Override
+	public int member_id_email(MemberVO vo) {
+		return sql.selectOne("member.id_email", vo);
 	}
 
 }

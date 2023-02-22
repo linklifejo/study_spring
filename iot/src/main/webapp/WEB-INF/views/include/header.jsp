@@ -21,8 +21,8 @@
 		</c:if>
 		<!-- 로그인된 경우 -->
 		<c:if test='${not empty loginInfo}'>
-			<li><strong>홍길동</strong> 님</li>
-			<li><a class='btn-fill'>로그아웃</a></li>
+			<li><strong>${loginInfo.name}</strong> 님</li>
+			<li><a class='btn-fill' href='logout'>로그아웃</a></li>
 		</c:if>
 		</ul>
 	</div>
