@@ -22,6 +22,7 @@
 		<!-- 로그인된 경우 -->
 		<c:if test='${not empty loginInfo}'>
 			<li><strong>${loginInfo.name}</strong> 님</li>
+			<li><a class='btn-empty' href='changepw'>비밀번호변경</a></li>
 			<li><a class='btn-fill' href='logout'>로그아웃</a></li>
 		</c:if>
 		</ul>

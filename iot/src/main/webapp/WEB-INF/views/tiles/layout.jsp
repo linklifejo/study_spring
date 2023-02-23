@@ -12,6 +12,7 @@
 <c:when test="${category eq 'bo'}"><c:set var='title' value='방명록'/></c:when>
 <c:when test="${category eq 'da'}"><c:set var='title' value='공공데이터'/></c:when>
 <c:when test="${category eq 'vi'}"><c:set var='title' value='시각화'/></c:when>
+<c:when test="${category eq 'changepw'}"><c:set var='title' value='비밀번호변경'/></c:when>
 </c:choose>
 
 

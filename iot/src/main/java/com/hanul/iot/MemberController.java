@@ -17,6 +17,60 @@ import member.MemberVO;
 @Controller
 public class MemberController {
 	@Autowired private MemberServiceImpl service;
+	private String NAVER_ID = "cwCXun6Ln6n8NekdCAS4";
+	private String NAVER_SECRET = "ngWzBrV8VC";
+	
+	
+	//네이버로그인처리 요청
+	@RequestMapping("/naverLogin")
+	public String naverLogin(HttpSession session) {
+		//https://nid.naver.com/oauth2.0/authorize?response_type=code
+		//&client_id=CLIENT_ID
+		//&state=STATE_STRING
+		//&redirect_uri=CALLBACK_URL
+		String state = UUID.randomUUID().toString();
+		session.setAttribute("state", state);
+		
+		//네이버 로그인 연동 URL 생성하기
+		StringBuffer url 
+			= new StringBuffer("https://nid.naver.com/oauth2.0/authorize?response_type=code");
+		url.append("&client_id=").append(NAVER_ID);
+		url.append("&state=").append(state);
+		url.append("&redirect_uri=").append("http://localhost/iot/naverCallback");
+		
+		return "redirect:" + url.toString();
+	}
+	
+	@RequestMapping("/naverCallback")
+	public String naverCallback(String state, String code
+								, HttpSession session) {
+		//네이버 로그인 연동 결과 Callback 정보
+		//콜백실패로 에러가 발생했거나
+		//상태토큰값이 일치하지 않는 경우 토큰을 발급받을수 없다
+		String val = (String)session.getAttribute("state") ;
+		if( code==null || ! state.equals( val ) ) 
+			return "redirect:/";
+		
+		//접근 토큰 발급 요청
+		//https://nid.naver.com/oauth2.0/token?grant_type=authorization_code
+		//&client_id=jyvqXeaVOVmV
+		//&client_secret=527300A0_COq1_XV33cf
+		//&code=EIc5bFrl4RibFls1
+		//&state=9kgsGTfH4j7IyAkg
+		StringBuffer url 
+		= new StringBuffer("https://nid.naver.com/oauth2.0/token?grant_type=authorization_code");	
+		url.append("&client_id=").append(NAVER_ID);
+		url.append("&client_secret=").append(NAVER_SECRET);
+		url.append("&code=").append(code);
+		url.append("&state=").append(state);
+		
+			
+			
+		
+		return "redirect:/";
+	}
+	
+	
 	
 	//로그아웃처리 요청
 	@RequestMapping("/logout")
@@ -28,6 +82,21 @@ public class MemberController {
 	}
 	
 	@Autowired private CommonUtility common;
+	
+	//비밀번호 변경화면 요청
+	@RequestMapping("/changepw")
+	public String changepw(HttpSession session) {
+		//로그인된 상태인 경우		
+		//로그인하지 않은 상태인 경우 로그인 화면으로 연결
+		MemberVO vo = (MemberVO)session.getAttribute("loginInfo");
+		if( vo==null )	return "redirect:login";
+		//응답화면연결 - 비밀번호변경화면
+		else {
+			session.setAttribute("category", "changepw");
+			return "member/password";
+		}
+	}
+	
 	
 	//비밀번호 재발급 처리 요청
 	@ResponseBody
@@ -99,9 +168,30 @@ public class MemberController {
 		return vo==null ? false : true;
 	}
 	
+	//비밀번호변경저장처리 요청
+	@RequestMapping("/change")
+	public String changepw(String pw, HttpSession session) {
+		//화면에서 입력한 비번으로 DB에 변경
+		//솔트를 사용해 입력한 비번을 암호화		
+		MemberVO vo = (MemberVO)session.getAttribute("loginInfo");
+		if(vo==null) return "redirect:login";
+		
+		pw = common.getEncrypt(pw, vo.getSalt()); //암호화된 비번
+		vo.setPw( pw );
+		
+		service.member_change_pw(vo);
+		
+		session.setAttribute("loginInfo", vo);
+		//응답화면연결 - 웰컴
+		return "redirect:/";
+	}
+	
+	
+	
 	//로그인화면 요청
 	@RequestMapping("/login")
-	public String login() {
+	public String login(HttpSession session) {
+		session.setAttribute("category", "login");
 		return "default/member/login";
 	}
 }

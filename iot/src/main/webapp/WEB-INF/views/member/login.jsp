@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#naver { 
+	background: url('imgs/naver_login.png') center; 
+	background-size: cover;
+}
+
+</style>
 </head>
 <body>
 <div class='center'>
@@ -14,11 +21,24 @@
 		<li><input type='text' class='chk' id='userid' placeholder="아이디"></li>
 		<li><input type='password' class='chk' id='userpw' placeholder="비밀번호"></li>
 		<li><input type='button' value='로그인' onclick='fn_login()'></li>
+		<li><hr></li>
+		<li><input type='button' id='naver'></li>
+		<li><input type='button' id='kakao'></li>
 	</ul>
 	</div>
 	<div><a href='findpw'>비밀번호찾기</a></div>
 </div>
+
 <script>
+$('#naver').click(function(){
+	location = 'naverLogin';
+});
+
+$('#userpw').keyup(function(e){
+	if( e.keyCode==13 )
+		fn_login();
+});
+
 function fn_login(){
 	if( ! emptyCheck() ) return;
 	
