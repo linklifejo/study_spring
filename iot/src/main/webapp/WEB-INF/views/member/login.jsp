@@ -10,6 +10,10 @@
 	background: url('imgs/naver_login.png') center; 
 	background-size: cover;
 }
+#kakao { 
+	background: url('imgs/kakao_login.png') center; 
+	background-size: cover;
+}
 
 </style>
 </head>
@@ -30,8 +34,8 @@
 </div>
 
 <script>
-$('#naver').click(function(){
-	location = 'naverLogin';
+$('#naver, #kakao').click(function(){
+	location =  $(this).attr('id')+ 'Login';
 });
 
 $('#userpw').keyup(function(e){

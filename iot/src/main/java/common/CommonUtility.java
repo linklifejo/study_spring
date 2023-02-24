@@ -8,6 +8,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +18,16 @@ import member.MemberVO;
 @Service
 public class CommonUtility {
 	
+	//실행되고 있는 app의 url
+	public String appURL(HttpServletRequest request) {
+		//  http://127.0.0.1/iot/naverCallback
+		//--> http://127.0.0.1/iot
+		return request.getRequestURL().toString()
+				.replace( request.getServletPath(), "");
+	}
+	
 	//API 요청
-	public void requestAPI( String apiURL ) {
-		
+	public String requestAPI( String apiURL ) {
 		try {	
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -40,12 +49,46 @@ public class CommonUtility {
 			  if(responseCode==200) {
 				  System.out.println( res.toString() );
 			  }
+			  apiURL = res.toString();
 		} catch (Exception e) {
 		  System.out.println(e);
 		}		
-		
-		
+		return apiURL;
 	}
+	
+	//API 요청 - 헤더정보추가
+	public String requestAPI( String apiURL, String property ) {
+		try {	
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", property);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			System.out.print("responseCode="+responseCode);
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer res = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+			if(responseCode==200) {
+				System.out.println( res.toString() );
+			}
+			apiURL = res.toString();
+		} catch (Exception e) {
+			System.out.println(e);
+		}		
+		return apiURL;
+	}
+	
+	
+	
 	
 	
 	//이메일로 임시비번 보내기

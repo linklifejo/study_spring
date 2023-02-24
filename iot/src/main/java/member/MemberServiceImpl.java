@@ -12,8 +12,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int member_join(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.member_join(vo);
 	}
 
 	@Override
@@ -56,6 +55,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int member_id_email(MemberVO vo) {
 		return dao.member_id_email(vo);
+	}
+
+	@Override
+	public boolean member_id_check(String id) {
+		return dao.member_id_check(id);
 	}
 
 }

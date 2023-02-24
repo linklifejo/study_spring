@@ -21,6 +21,15 @@
 		</c:if>
 		<!-- 로그인된 경우 -->
 		<c:if test='${not empty loginInfo}'>
+			<c:choose>
+				<c:when test='${empty loginInfo.profile}'>
+					<i class="font-profile fa-regular fa-circle-user"></i>
+				</c:when>
+				<c:otherwise>
+					<img class='profile' src='${loginInfo.profile}'>
+				</c:otherwise>
+			</c:choose>
+		
 			<li><strong>${loginInfo.name}</strong> 님</li>
 			<li><a class='btn-empty' href='changepw'>비밀번호변경</a></li>
 			<li><a class='btn-fill' href='logout'>로그아웃</a></li>
@@ -29,6 +38,8 @@
 	</div>
 </header>
 <style>
+.font-profile { font-size: 50px; }
+.profile { width:50px; height: 50px;  border-radius: 50%; }
 header { 
 	border-bottom: 1px solid #aaa;
 	display: flex; align-items: center; justify-content: space-between;

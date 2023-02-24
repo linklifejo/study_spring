@@ -19,12 +19,14 @@
 <title>지능형 IoT ${title}</title>
 <link rel='icon' href='imgs/hanul.ico'>
 <link rel='stylesheet' type='text/css' 
-		href='css/common.css?<%=new java.util.Date()%>'>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">		
+		href='css/common.css?<%=new java.util.Date()%>'>		
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css'>		
 <!-- <script src='js/jquery-3.6.3.min.js'></script>		 -->
 <script src='https://code.jquery.com/jquery-3.6.3.min.js'></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src='js/common.js?<%=new java.util.Date()%>'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js'></script>
 <style>
 .ui-datepicker table tr { height: inherit; }
 </style>

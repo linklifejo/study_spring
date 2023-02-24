@@ -3,8 +3,10 @@ package com.hanul.iot;
 import java.util.HashMap;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +19,60 @@ import member.MemberVO;
 @Controller
 public class MemberController {
 	@Autowired private MemberServiceImpl service;
+	private String KAKAO_ID = "bf5b4ca46510724c71f3c62e30d2dc49";
 	private String NAVER_ID = "cwCXun6Ln6n8NekdCAS4";
 	private String NAVER_SECRET = "ngWzBrV8VC";
 	
+	//카카오로그인처리 요청
+	@RequestMapping("/kakaoLogin")
+	public String kakaoLogin(HttpServletRequest request) {
+		//인가 코드 받기
+		//https://kauth.kakao.com/oauth/authorize?response_type=code
+		//&client_id=${REST_API_KEY}
+		//&redirect_uri=${REDIRECT_URI}
+		StringBuffer url 
+		= new StringBuffer("https://kauth.kakao.com/oauth/authorize?response_type=code");
+		url.append("&client_id=").append(KAKAO_ID);
+		url.append("&redirect_uri=")
+			.append( common.appURL(request) )
+			.append("/kakaoCallback");
+		
+		return url.toString();
+	}
+	
+	//카카오콜백처리
+	@RequestMapping("/kakaoCallback")
+	public String kakaoCallback(String code){
+		if( code==null ) return "redirect:/";
+		//토큰 받기
+//		curl -v -X POST "https://kauth.kakao.com/oauth/token" \
+//		 -H "Content-Type: application/x-www-form-urlencoded" \
+//		 -d "grant_type=authorization_code" \
+//		 -d "client_id=${REST_API_KEY}" \
+//		 --data-urlencode "redirect_uri=${REDIRECT_URI}" \
+//		 -d "code=${AUTHORIZE_CODE}"
+		StringBuffer url 
+		= new StringBuffer("https://kauth.kakao.com/oauth/token?grant_type=authorization_code") ;
+		url.append("&client_id=").append(KAKAO_ID);
+		url.append("&code=").append(code);
+		JSONObject json 
+			= new JSONObject( common.requestAPI(url.toString()) );
+		String type = json.getString("token_type");
+		String token = json.getString("access_token");
+		
+		//카카오 프로필정보 받기
+//		curl -v -X GET "https://kapi.kakao.com/v2/user/me" \
+//		  -H "Authorization: Bearer ${ACCESS_TOKEN}"
+		url = new StringBuffer("https://kapi.kakao.com/v2/user/me");
+		common.requestAPI(url.toString(), type + " " + token);
+		
+		
+		return "redirect:/";
+	}
 	
 	//네이버로그인처리 요청
 	@RequestMapping("/naverLogin")
-	public String naverLogin(HttpSession session) {
+	public String naverLogin(HttpSession session, HttpServletRequest request) {
 		//https://nid.naver.com/oauth2.0/authorize?response_type=code
 		//&client_id=CLIENT_ID
 		//&state=STATE_STRING
@@ -36,7 +85,7 @@ public class MemberController {
 			= new StringBuffer("https://nid.naver.com/oauth2.0/authorize?response_type=code");
 		url.append("&client_id=").append(NAVER_ID);
 		url.append("&state=").append(state);
-		url.append("&redirect_uri=").append("http://localhost/iot/naverCallback");
+		url.append("&redirect_uri=").append( common.appURL(request) ).append("/naverCallback");
 		
 		return "redirect:" + url.toString();
 	}
@@ -64,8 +113,42 @@ public class MemberController {
 		url.append("&code=").append(code);
 		url.append("&state=").append(state);
 		
+		String response = common.requestAPI( url.toString() );
+		JSONObject json = new JSONObject(response);
+		String token = json.getString("access_token");
+		String type = json.getString("token_type");
+		
+		//접근 토큰을 이용하여 프로필 API 호출하기
+		url = new StringBuffer("https://openapi.naver.com/v1/nid/me");
+		response = common.requestAPI(url.toString(), type+" "+token);
+		json = new JSONObject(response);
+		
+		if( json.getString("resultcode").equals("00") ) {
+			json = json.getJSONObject("response");
 			
+			MemberVO vo = new MemberVO();
+			vo.setId( json.getString("id") );
+			vo.setName( json.getString("name") );
+			vo.setEmail( json.getString("email") );
+			vo.setProfile( json.getString("profile_image") );
+			//male/female
+			vo.setGender( json.getString("gender").equals("F") ? "여" : "남" );
+			vo.setPhone( json.getString("mobile") );
+			if( vo.getName().isEmpty() ) {
+				vo.setName( json.getString("nickname") );
+			}
+			vo.setSocial("N");
 			
+			//insert/update
+			//네이버로그인이 처음이면 신규저장/ 아니면 변경저장
+			//네이버아이디가 존재하는지 파악: 1:T(update), 0:F(insert)
+			if( service.member_id_check( vo.getId() ) ) {
+				service.member_update(vo);				
+			}else {
+				service.member_join(vo);
+			}
+			session.setAttribute("loginInfo", vo);
+		}
 		
 		return "redirect:/";
 	}
