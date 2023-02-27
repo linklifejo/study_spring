@@ -17,7 +17,7 @@
 		<!-- 로그인하지 않은 경우 -->
 		<c:if test='${empty loginInfo}'>
 			<li><a class='btn-fill' href='login'>로그인</a></li>
-			<li><a class='btn-fill'>회원가입</a></li>
+			<li><a class='btn-fill' href='member'>회원가입</a></li>
 		</c:if>
 		<!-- 로그인된 경우 -->
 		<c:if test='${not empty loginInfo}'>

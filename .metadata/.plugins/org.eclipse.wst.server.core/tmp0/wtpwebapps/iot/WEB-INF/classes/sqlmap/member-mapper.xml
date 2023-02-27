@@ -21,6 +21,18 @@ values (#{id}, #{pw, jdbcType=VARCHAR}, #{name}
 
 <!-- 회원정보변경 -->
 <update id="update">
+update member set 
+pw = #{pw, jdbcType=VARCHAR}, name = #{name} 
+, salt = #{salt, jdbcType=VARCHAR}
+, gender = #{gender}
+, email = #{email, jdbcType=VARCHAR}
+, birth = #{birth, jdbcType=VARCHAR}
+, phone = #{phone, jdbcType=VARCHAR}
+, post = #{post, jdbcType=VARCHAR}
+, address = #{address, jdbcType=VARCHAR}
+, social = #{social, jdbcType=VARCHAR}
+, profile = #{profile, jdbcType=VARCHAR}
+where id = #{id}
 </update>
 
 <!-- 아이디 존재여부 조회 -->

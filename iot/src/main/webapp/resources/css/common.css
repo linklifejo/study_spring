@@ -12,6 +12,16 @@ a:link, a:visited { text-decoration: none;  color:inherit }
 .txt-right { text-align: right; }
 .invalid { color: #ff0000; font-size: 14px; font-weight: bold; }
 .valid { color: #008000; font-size: 14px; font-weight: bold; }
+.full { width: calc(100% - 22px) }
+.font-img { font-size: 20px; }
+.font-img-r { font-size: 20px;  color: #ff0000; }
+.font-img-g { font-size: 20px;  color: #008000; }
+.font-img-b { font-size: 20px;  color: #0730fa; }
+.font-img-c { font-size: 20px;  color: #333; }
+
+.date + #btn-delete { position: relative;  right: 33px }
+
+#btn-delete, #attach-file { display: none }
 
 #container { padding: 20px 0 }
 table {
