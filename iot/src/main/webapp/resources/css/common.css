@@ -21,7 +21,10 @@ a:link, a:visited { text-decoration: none;  color:inherit }
 
 .date + #btn-delete { position: relative;  right: 33px }
 
-#btn-delete, #attach-file { display: none }
+#btn-delete, #attach-file, #delete-file { display: none }
+#preview img {max-height: 24px; }
+.align { display: flex; align-items: center; }
+.align * { margin-right: 5px; }
 
 #container { padding: 20px 0 }
 table {
@@ -33,6 +36,7 @@ table th { background-color: #f6f6f6 }
 table tr { height: 46px  }
 table.tb-list tr { height: 38px }
 table td a:hover { color: #0730fa; font-weight:bold;  text-decoration: underline; }
+
 
 input {
 	height: 30px;

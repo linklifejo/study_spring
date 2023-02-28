@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import common.CommonUtility;
 import member.MemberServiceImpl;
@@ -29,6 +30,44 @@ public class MemberController {
 		session.setAttribute("category", "join");
 		return "member/join";
 	}
+	
+	//회원가입처리 요청
+	@ResponseBody 
+	@RequestMapping(value="/join", produces="text/html; charset=utf-8")
+	public String join(MemberVO vo, MultipartFile file  
+				, HttpServletRequest request) {
+		//첨부된 파일이 있는 경우
+		if( ! file.isEmpty() ) {
+			vo.setProfile(
+				common.fileUpload(file, "profile", request) );
+		}
+		
+		//화면에서 입력한 회원정보로 DB에 회원가입처리
+		//비번암호화: 암호화용salt -> salt를 사용해 입력비번을 암호화
+		String salt = common.generateSalt();
+		String pw = common.getEncrypt(vo.getPw(), salt);
+		vo.setSalt(salt);
+		vo.setPw( pw );
+		StringBuffer msg = new StringBuffer("<script>");
+		if( service.member_join(vo)==1 ) {
+			//이메일로 회원가입축하 메시지 보내기
+			msg.append("alert('회원가입을 축하합니다^^'); location='")
+				.append( common.appURL(request)) .append("' ");
+		}else {
+			msg.append("alert('회원가입 실패ㅠㅠ'); history.go(-1)");
+		}
+		msg.append("</script>");
+		return msg.toString();
+	}
+		
+	
+	//아이디 중복확인처리 요청
+	@ResponseBody @RequestMapping("/id_check")
+	public boolean id_check(String id) {
+		//화면에서 입력한 아이디가 DB에 존재하는지 존재여부 확인
+		return service.member_id_check(id);
+	}
+	
 	
 	//카카오로그인처리 요청
 	@RequestMapping("/kakaoLogin")

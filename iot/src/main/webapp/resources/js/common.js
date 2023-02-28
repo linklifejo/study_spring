@@ -42,6 +42,7 @@ $( function() {
 			if( $('#preview').length==1 ){ //미리보기할 태그가 있는 경우
 				//해당 이미지파일 정보를 읽어서 화면에 img 태그로 만든다
 				if( isImage( attached.name ) ){
+					$('#delete-file').css('display', 'inline');
 					$('#preview').html('<img>');
 					var reader = new FileReader();
 					reader.onload = function( e ){						
@@ -56,6 +57,13 @@ $( function() {
 	
 	});
     
+    $('#delete-file').click(function(){
+		$('#attach-file').val(''); //실제 첨부된 파일정보 삭제
+		//$('#preview').html('');
+		//$('#preview img').remove();
+		$('#preview').empty();
+		$('#delete-file').css('display', 'none');	
+	});
     
 }); 
 
