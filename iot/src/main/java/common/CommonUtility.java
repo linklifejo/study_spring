@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,10 @@ public class CommonUtility {
 						, HttpServletRequest request) {
 		// upload/profile/2023/02/28/abc.png
 		//D:\Study_Spring\.metadata\..bapps\iot\resources
-		String path = request.getSession().getServletContext()
-				.getRealPath("resources");
+//		String path = request.getSession().getServletContext()
+//				.getRealPath("resources");
+		String path = "d://app/" + request.getContextPath();
+		
 		String upload = "/upload/" + category 
 		+ new SimpleDateFormat("/yyyy/MM/dd").format(new Date());
 		
@@ -129,9 +132,12 @@ public class CommonUtility {
 	//회원가입축하 이메일 보내기
 	public void sendWelcome(MemberVO vo, String welcome) {
 		HtmlEmail email =  new HtmlEmail();
+		email.setDebug(true);
+		email.setCharset("utf-8");
+		
 		email.setHostName("smtp.naver.com");
 		//보내는 이인 관리자로 로그인: 아이디/비번 입력
-		email.setAuthentication("itstudydev", "itlearning10102");		
+		email.setAuthentication("itstudydev", "Itstudy10102");		
 		email.setSSLOnConnect(true); //로그인하기
 		
 		try {
@@ -151,6 +157,15 @@ public class CommonUtility {
 		email.setHtmlMsg(msg.toString());
 		
 		//축하파일 첨부하기
+		EmailAttachment file = new EmailAttachment(); //첨부파일객체 생성
+		file.setPath( welcome );
+		email.attach(file);
+
+//		file = new EmailAttachment(); //첨부파일객체 생성
+//		file.setPath( welcome );
+//		email.attach(file);
+		
+		email.send(); //메일보내기
 		
 		}catch(EmailException e) {
 			

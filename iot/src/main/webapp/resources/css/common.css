@@ -49,6 +49,13 @@ input[type=radio] {
 	margin: 0 5px 2px;
 	vertical-align: middle;
 }
+textarea {
+	padding: 0 10px;
+	resize: none;
+	height: 150px; font-size: 16px;
+	border: 1px solid #b0b0b0;
+}
+
 label:not(:last-child) { margin-right: 20px }
 
 select {
@@ -58,7 +65,7 @@ select {
 	font-size: 16px;
 	padding-left: 10px;
 }
-input:focus, select:focus { border-color:#3367d6; outline: none; }
+input:focus, select:focus, textarea:focus { border-color:#3367d6; outline: none; }
 
 .btnSet { margin: 20px auto; }
 

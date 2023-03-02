@@ -36,6 +36,8 @@ public class HomeController {
 		//모든회원정보 조회
 		List<MemberVO> list = member.member_list();
 		for(MemberVO vo : list) {
+			if( vo.getSocial()!=null ) continue;
+			if( vo.getSalt()!=null ) continue;
 			//비번 암호화를 위한 솔트 생성
 			String salt = common.generateSalt();
 			//솔트를 사용해 비번을 암호화

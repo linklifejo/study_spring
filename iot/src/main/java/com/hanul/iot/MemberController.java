@@ -51,6 +51,10 @@ public class MemberController {
 		StringBuffer msg = new StringBuffer("<script>");
 		if( service.member_join(vo)==1 ) {
 			//이메일로 회원가입축하 메시지 보내기
+			String filename = request.getSession().getServletContext()
+				.getRealPath("resources/js/회원가입축하.pdf");
+			common.sendWelcome(vo, filename);
+			
 			msg.append("alert('회원가입을 축하합니다^^'); location='")
 				.append( common.appURL(request)) .append("' ");
 		}else {

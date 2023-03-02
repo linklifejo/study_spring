@@ -6,7 +6,7 @@
 			<li><a href='<c:url value="/"/>'><img src='imgs/hanul.logo.png'></a></li>
 			<li><a ${category eq 'cu' ? "class='active'" : ''} href='list.cu'>고객관리</a></li>
 			<li><a ${category eq 'hr' ? "class='active'" : ''} href='list.hr'>사원관리</a></li>
-			<li><a>공지사항</a></li>
+			<li><a ${category eq 'no' ? "class='active'" : ''} href='list.no'>공지사항</a></li>
 			<li><a>방명록</a></li>
 			<li><a>공공데이터</a></li>
 			<li><a>시각화</a></li>
