@@ -21,20 +21,22 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public NoticeVO notice_info(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.notice_info(id);
 	}
 
 	@Override
 	public int notice_update(NoticeVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.notice_update(vo);
 	}
 
 	@Override
 	public int notice_delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.notice_delete(id);
+	}
+
+	@Override
+	public int notice_read(int id) {
+		return dao.notice_read(id);
 	}
 
 }

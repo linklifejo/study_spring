@@ -8,7 +8,7 @@
 </head>
 <body>
 <h3>공지글쓰기</h3>
-<form method='post' action='insert.no'>
+<form method='post' action='insert.no' enctype='multipart/form-data'>
 <table class='w-px1200'>
 <tr><th class='w-px140'>제목</th>
 	<td><input type='text' name='title' class='full chk' title='제목'></td>

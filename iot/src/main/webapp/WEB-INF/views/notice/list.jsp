@@ -23,18 +23,24 @@
 	<col>
 	<col width='120px'>
 	<col width='140px'>
+	<col width='100px'>
 </colgroup>
 
 <tr><th>제목</th>
 	<th>작성자</th>
 	<th>작성일자</th>
+	<th>첨부파일</th>
 </tr>
 
 <c:forEach items='${list}' var='vo'>
 <tr>
-	<td class='txt-left'>${vo.title}</td>
+	<td class='txt-left'><a href='info.no?id=${vo.id}'>${vo.title}</a></td>
 	<td>${vo.name}</td>
 	<td>${vo.writedate}</td>
+	<td><c:if test='${! empty vo.filename}'>
+		<i class="font-img-c fa-solid fa-paperclip"></i>
+		</c:if>
+	</td>
 </tr>
 </c:forEach>
 
