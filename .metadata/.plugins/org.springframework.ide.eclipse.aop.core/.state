@@ -2,7 +2,6 @@
 <aop-reference-model>
 <aop-project name="MyProject_App"/>
 <aop-project name="iot"/>
-<aop-project name="exam"/>
 <aop-project name="web"/>
 <aop-project name="MyProjectX"/>
 </aop-reference-model>

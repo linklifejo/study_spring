@@ -41,4 +41,13 @@ public class NoticeDAO implements NoticeService {
 		return sql.update("no.read", id);
 	}
 
+	@Override
+	public NoticePageVO notice_list(NoticePageVO page) {
+		//총 글건수를 조회하면 페이지관련정보가 계산된다
+		page.setTotalList( sql.selectOne("no.totalCount", page) );
+		//해당 페이지의 글 목록 조회
+		page.setList( sql.selectList("no.list", page) );
+		return page;
+	}
+
 }

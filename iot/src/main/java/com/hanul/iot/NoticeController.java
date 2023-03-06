@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import common.CommonUtility;
 import member.MemberServiceImpl;
 import member.MemberVO;
+import notice.NoticePageVO;
 import notice.NoticeServiceImpl;
 import notice.NoticeVO;
 
@@ -156,7 +157,8 @@ public class NoticeController {
 	
 	//공지글목록화면 요청
 	@RequestMapping("/list.no")
-	public String list(Model model, HttpSession session) {
+	public String list(Model model, HttpSession session
+						, NoticePageVO page) {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
 		String id = "admin2";
@@ -170,10 +172,11 @@ public class NoticeController {
 		//-----------------------------------------
 		
 		//DB 에서 공지글목록을 조회해온다
-		List<NoticeVO> list = service.notice_list();
+		//List<NoticeVO> list = service.notice_list();
+		page = service.notice_list(page);
 		
 		//조회해온 정보를 화면에 출력할 수 있도록 Model에 담는다
-		model.addAttribute("list", list);
+		model.addAttribute("page", page);
 		return "notice/list";
 	}
 }
