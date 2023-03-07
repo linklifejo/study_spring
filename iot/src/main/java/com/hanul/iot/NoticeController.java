@@ -1,6 +1,7 @@
 package com.hanul.iot;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +39,9 @@ public class NoticeController {
 	
 	//선택한 공지글삭제처리 요청
 	@RequestMapping("/delete.no")
-	public String delete(int id, HttpServletRequest request) {
+	public String delete(int id, NoticePageVO page
+						, HttpServletRequest request) 
+									throws Exception{
 		//첨부파일이 있는 공지글은 서버에서 물리적인 파일도 삭제
 		NoticeVO vo = service.notice_info(id);
 		
@@ -47,7 +50,10 @@ public class NoticeController {
 			file_delete(vo.getFilepath(), request);
 		}
 		//목록화면연결
-		return "redirect:list.no";
+		return "redirect:list.no?curPage="+ page.getCurPage()
+				+"&search="+ page.getSearch()
+				+"&keyword="+
+					URLEncoder.encode( page.getKeyword(), "utf-8");
 	}
 	
 	private void file_delete(String filepath, HttpServletRequest request) {
@@ -64,8 +70,9 @@ public class NoticeController {
 	
 	//선택한 공지글수정저장처리 요청
 	@RequestMapping("/update.no")
-	public String update(NoticeVO vo, MultipartFile file
-						, HttpServletRequest request) {
+	public String update(NoticeVO vo, NoticePageVO page
+						, MultipartFile file
+						, HttpServletRequest request) throws Exception{
 		NoticeVO notice = service.notice_info( vo.getId() );
 		
 		//파일 첨부하지 않는 경우
@@ -94,18 +101,24 @@ public class NoticeController {
 		//화면에서 변경입력한 정보로 DB에 변경저장한다
 		service.notice_update(vo);
 		//공지글안내화면연결
-		return "redirect:info.no?id="+ vo.getId();
+		return "redirect:info.no?id="+ vo.getId() 
+				+ "&curPage="+ page.getCurPage()
+				+ "&search="+ page.getSearch()
+				+ "&keyword="
+					+ URLEncoder.encode(page.getKeyword(), "utf-8")
+				;
 	}
 	
 	
 	
 	//선택한 공지글수정화면 요청
 	@RequestMapping("/modify.no")
-	public String modify(int id, Model model) {
+	public String modify(int id, Model model, NoticePageVO page) {
 		//선택한 공지글정보를 DB에서 조회해온다
 		NoticeVO vo = service.notice_info(id);
 		//화면에 출력할 수 있도록 Model에 담는다
 		model.addAttribute("vo", vo);
+		model.addAttribute("page", page);
 		return "notice/modify";
 	}
 	
@@ -113,7 +126,7 @@ public class NoticeController {
 	
 	//선택한 공지글정보화면 요청
 	@RequestMapping("/info.no")
-	public String info(int id, Model model) {
+	public String info(int id, NoticePageVO page, Model model) {
 		//조회수 증가처리
 		service.notice_read(id);
 		
@@ -124,6 +137,7 @@ public class NoticeController {
 		NoticeVO vo = service.notice_info(id);
 		//화면에 출력할 수 있도록 Model에 담는다
 		model.addAttribute("vo", vo);
+		model.addAttribute("page", page);
 		return "notice/info";
 	}
 	
@@ -155,6 +169,39 @@ public class NoticeController {
 	@Autowired private MemberServiceImpl member;
 	@Autowired private CommonUtility common;
 	
+	//답글저장처리 요청
+	@RequestMapping("/reply_insert.no")
+	public String reply_insert(NoticeVO vo
+							, NoticePageVO page
+							, MultipartFile file
+							, HttpServletRequest request) 
+									throws Exception {
+		if( ! file.isEmpty() ) {
+			vo.setFilename( file.getOriginalFilename() );
+			vo.setFilepath( common.fileUpload(file, "notice", request));
+		}
+		
+		//화면에서 입력한 답글정보로 DB에 신규저장한다
+		service.notice_reply_insert(vo);
+		//목록화면연결
+		return "redirect:list.no?curPage="+page.getCurPage()
+				+ "&search=" + page.getSearch()
+				+ "&keyword=" 
+					+ URLEncoder.encode(page.getKeyword(),"utf-8" )
+				;
+	}
+	
+	//답글쓰기화면 요청
+	@RequestMapping("/reply.no")
+	public String reply(int id, Model model
+						, NoticePageVO page) {
+		//답글쓰기 데이터 저장시 필요한 원글의 정보를 조회한다
+		//답글쓰기 화면에서 사용할 수 있도록 Model에 담는다
+		model.addAttribute("vo", service.notice_info(id) );
+		model.addAttribute("page", page);
+		return "notice/reply";
+	}
+	
 	//공지글목록화면 요청
 	@RequestMapping("/list.no")
 	public String list(Model model, HttpSession session
@@ -162,8 +209,10 @@ public class NoticeController {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
 		String id = "admin2";
+//		String id = "hong2023";
 		map.put("id", id);		
 		map.put("pw", "manager");
+//		map.put("pw", "Hong2023");
 		String salt = member.member_salt(id);
 		map.put("pw", common.getEncrypt(map.get("pw"), salt) );
 		
@@ -171,6 +220,7 @@ public class NoticeController {
 		session.setAttribute("loginInfo", vo);
 		//-----------------------------------------
 		
+		session.setAttribute("category", "no");
 		//DB 에서 공지글목록을 조회해온다
 		//List<NoticeVO> list = service.notice_list();
 		page = service.notice_list(page);

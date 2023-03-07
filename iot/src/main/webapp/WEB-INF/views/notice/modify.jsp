@@ -35,6 +35,9 @@
 <input type='hidden' name='id' value='${vo.id}'>
 <input type='hidden' name='filename'>
 
+<input type='hidden' name='curPage' value='${page.curPage}'>
+<input type='hidden' name='search' value='${page.search}'>
+<input type='hidden' name='keyword' value='${page.keyword}'>
 </form>
 <div class='btnSet'>
 <a class='btn-fill btn-save'>저장</a>

@@ -52,7 +52,14 @@
 
 <c:forEach items='${page.list}' var='vo'>
 <tr><td>${vo.no }</td>
-	<td class='txt-left'><a href='info.no?id=${vo.id}'>${vo.title}</a></td>
+	<td class='txt-left'>
+		<span style="margin-left:${10*vo.indent}px"></span>
+		<c:forEach var="i" begin="1" end="${vo.indent}">
+			<c:if test="${i eq vo.indent}">
+				<i class="fa-regular fa-comment-dots"></i>
+			</c:if>			
+		</c:forEach>
+		<a href='info.no?search=${page.search}&keyword=${page.keyword}&curPage=${page.curPage}&id=${vo.id}'>${vo.title}</a></td>
 	<td>${vo.name}</td>
 	<td>${vo.writedate}</td>
 	<td><c:if test='${! empty vo.filename}'>
