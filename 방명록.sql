@@ -38,8 +38,14 @@ begin
 end;
 /
 
+select * from
+(select b.*, name, row_number() over(order by b.id) no  
+from board b inner join member m on b.writer = m.id ) b
+where no between -9 and 1
+order by no desc;
 
-
+select * from board;
+select * from board_file;
 
 
 

@@ -21,8 +21,9 @@ a:link, a:visited { text-decoration: none;  color:inherit }
 
 .date + #btn-delete { position: relative;  right: 33px }
 
-#btn-delete, #attach-file, #delete-file { display: none }
-#preview img {max-height: 24px; }
+#btn-delete, #attach-file, #delete-file
+, .attach-file, .delete-file { display: none }
+#preview img, .preview img {max-height: 24px; }
 .align { display: flex; align-items: center; }
 .align * { margin-right: 5px; }
 

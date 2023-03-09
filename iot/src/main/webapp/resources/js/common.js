@@ -73,8 +73,59 @@ $( function() {
 //		$('#preview').empty();
 //		$('#delete-file').css('display', 'none');	
 	});
-    
+
 }); 
+
+
+//여러개의 파일을 첨부하는 화면에서 사용할 처리
+//동적으로 생성한 태그에 대한 이벤트 등록은 문서에 대해 처리해야한다
+$(document).on('change', '.attach-file', function(){
+	var attached = this.files[0];
+	var _div = $(this).closest('div');
+	
+	if( attached ){
+		
+		//파일을 선택하면 첨부파일 태그를 복제해서 붙이기
+		if( _div.children('.file-name').text()=='' )  copyFileTag();
+		
+		_div.children('.file-name').text( attached.name );
+		_div.children('.delete-file').css('display', 'inline');
+		
+		if( isImage(attached.name) ){ //선택한 파일이 이미지인 경우 미리보기되게
+			_div.children('.preview').html('<img>');
+			var reader = new FileReader();
+			reader.onload = function(e){
+				_div.find('.preview img').attr('src', e.target.result);
+			}
+			reader.readAsDataURL( attached );				
+		}else{
+			_div.find('.preview img').remove();
+		}
+		
+	}else{
+		_div.remove();		
+	}
+	
+}).on('click', '.delete-file', function(){
+	//선택한 삭제버튼에 해당하는 첨부파일태그 삭제
+	var _div = $(this).closest('div');
+	_div.remove();
+	
+})
+;
+
+
+function copyFileTag(){
+	var last = $("div.align").last();
+	last.after( last.clone() );
+	
+	//복제한 파일태그 초기화
+	last = $("div.align").last();
+	last.find('.attach-file').val('');
+	last.find('.file-name').text('');
+	last.find('.delete-file').css('display', 'none');
+}
+
 
 function initAttatch(){
 	$('#attach-file').val('');
