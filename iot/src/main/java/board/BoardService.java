@@ -9,4 +9,6 @@ public interface BoardService {
 	int board_update(BoardVO vo); //선택한 방명록 정보수정저장
 	int board_delete(int id); //선택한 방명록 정보삭제
 	
+	BoardFileVO board_file_info(int id); //첨부파일정보 조회
+	
 }

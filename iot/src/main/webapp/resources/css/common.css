@@ -36,7 +36,7 @@ table th, table td { padding: 6px 10px; border:1px solid #b0b0b0 }
 table th { background-color: #f6f6f6 }
 table tr { height: 46px  }
 table.tb-list tr { height: 38px }
-table td a:hover { color: #0730fa; font-weight:bold;  text-decoration: underline; }
+table td a:hover, ul.grid div a:hover { color: #0730fa; font-weight:bold;  text-decoration: underline; }
 
 
 input {
@@ -109,6 +109,22 @@ ul li:not(:first-child) { margin-left: 5px }
 }
 .page-list span { border: 1px solid #3367d6; color: #3367d6; }
 .page-list a:hover { background-color: rgba(51, 103, 214, 0.1); color: #3367d6; } 
+
+ul.grid {
+	display: flex; margin: 0 auto; flex-wrap: wrap;
+}
+ul.grid li {
+	width: 232px; height: 150px; margin-right: 10px;
+	border: 1px solid #b0b0b0; box-sizing: border-box; 
+	text-align: left; margin-left: 0px;
+}
+ul.grid li:nth-child(5n) { margin-right: 0px; }
+ul.grid li:nth-child(5n)~li { margin-top: 10px; }
+
+ul.grid li div { padding: 7px 10px 9px }
+ul.grid li div:nth-child(1) { height: 68px }
+ul.grid li div:nth-child(2) { padding: 0 10px }
+
 
 .w-pct80 { width: 80% }
 .w-pct70 { width: 70% }

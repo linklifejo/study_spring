@@ -19,14 +19,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO board_info(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.board_info(id);
 	}
 
 	@Override
 	public int board_read(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.board_read(id);
 	}
 
 	@Override
@@ -39,6 +37,11 @@ public class BoardServiceImpl implements BoardService {
 	public int board_delete(int id) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public BoardFileVO board_file_info(int id) {
+		return dao.board_file_info(id);
 	}
 
 }
