@@ -72,6 +72,78 @@ public class BoardController {
 	}
 	
 	
+	//방명록 글 수정저장처리 요청
+	@RequestMapping("/update.bo")
+	public String update(int id, BoardPageVO page, Model model
+							, BoardVO vo, String removed
+							, HttpServletRequest request
+							, MultipartFile[] file) {
+		//첨부되어진 파일이 있다면 해당 파일 정보를 저장한다
+		List<BoardFileVO> files = attached_file(file, request); //파일목록
+		
+		//화면에서 변경입력한 정보로 DB에 변경저장한다		
+		service.board_update(vo);
+		
+		//삭제하려는 대상파일정보 조회
+		if( ! removed.isEmpty() ) { 
+			List<BoardFileVO> remove_files  
+				= service.board_removed_file(removed);
+			
+			//DB에서 삭제 + 물리적인 파일 삭제
+			if( service.board_file_delete(removed) > 0 ) {
+				for(BoardFileVO f : remove_files) {
+					common.file_delete(f.getFilepath(), request);
+				}
+			}
+		}
+		
+		//화면연결 - 정보화면		
+		model.addAttribute("url", "info.bo");
+		model.addAttribute("page", page);
+		model.addAttribute("id", id);
+		return "board/redirect";
+	}
+	
+	
+	
+	//방명록 글 수정화면 요청
+	@RequestMapping("/modify.bo")
+	public String modify(Model model, int id, BoardPageVO page) {
+		//선택한 글정보를 DB에서 조회한다.
+		BoardVO vo = service.board_info(id);		
+		//화면에 출력할 수 있도록 Model에 담는다
+		model.addAttribute("vo", vo);
+		model.addAttribute("page", page);
+		return "board/modify";
+	}
+	
+	
+	
+	//방명록 글 삭제처리 요청
+	@RequestMapping("/delete.bo")
+	public String delete(int id, BoardPageVO page, Model model
+							, HttpServletRequest request) {
+		//첨부파일정보를 조회해둔다
+		List<BoardFileVO> files 
+			= service.board_info(id).getFileInfo();
+		
+		//선택한 글을 DB에서 삭제한다
+		if( service.board_delete(id)==1 ) {
+			//첨부되어진 파일을 물리적으로 저장된 영역에서 삭제한다
+			for(BoardFileVO vo : files) {
+				common.file_delete(vo.getFilepath(), request);
+			}
+		}
+		
+		//응답화면연결 - 목록
+		//redirect 화면에서 출력할 정보를 Model에 담는다
+		model.addAttribute("url", "list.bo");
+		model.addAttribute("id", id);
+		model.addAttribute("page", page);
+		return "board/redirect";
+	}
+	
+	
 	//방명록 새글쓰기화면 요청
 	@RequestMapping("/new.bo")
 	public String board() {

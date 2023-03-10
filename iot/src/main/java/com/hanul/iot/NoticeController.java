@@ -47,24 +47,13 @@ public class NoticeController {
 		
 		//선택한 공지글정보를  DB에서 삭제한다
 		if( service.notice_delete(id) == 1 ) {
-			file_delete(vo.getFilepath(), request);
+			common.file_delete(vo.getFilepath(), request);
 		}
 		//목록화면연결
 		return "redirect:list.no?curPage="+ page.getCurPage()
 				+"&search="+ page.getSearch()
 				+"&keyword="+
 					URLEncoder.encode( page.getKeyword(), "utf-8");
-	}
-	
-	private void file_delete(String filepath, HttpServletRequest request) {
-		//http://localhost/iot/upload/notice/2023/03/03/e7227d4f-b3cf-48e8-a560-b7dfc755e76d_2-1.훈련운영계획서.hwp
-		//--> "d://app/iot/upload/notice/2023/03/03/abc34y-afdl_abc.txt"
-		if( filepath != null ) {
-			filepath = filepath.replace( 
-				common.appURL(request), "d://app/" + request.getContextPath() );
-			File file = new File( filepath );
-			if( file.exists() ) file.delete();
-		}
 	}
 	
 	
@@ -80,7 +69,7 @@ public class NoticeController {
 			if( vo.getFilename().isEmpty() ) {				
 				//원래 첨부파일 X --> 첨부X
 				//원래 첨부파일 O --> 첨부X
-				file_delete(notice.getFilepath(), request);
+				common.file_delete(notice.getFilepath(), request);
 				
 			}else {
 				//원래 첨부파일 O --> 그대로 사용: 원래 정보로 담아둔다
@@ -95,7 +84,7 @@ public class NoticeController {
 			vo.setFilepath( common.fileUpload(file, "notice", request) );
 			
 		//원래 첨부파일 O --> 바꿔 첨부
-			file_delete(notice.getFilepath(), request);
+			common.file_delete(notice.getFilepath(), request);
 		}
 		
 		//화면에서 변경입력한 정보로 DB에 변경저장한다

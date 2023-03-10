@@ -30,6 +30,18 @@ import member.MemberVO;
 @Service
 public class CommonUtility {
 	
+	//첨부파일 삭제
+	public void file_delete(String filepath, HttpServletRequest request) {
+		//http://localhost/iot/upload/notice/2023/03/03/e7227d4f-b3cf-48e8-a560-b7dfc755e76d_2-1.훈련운영계획서.hwp
+		//--> "d://app/iot/upload/notice/2023/03/03/abc34y-afdl_abc.txt"
+		if( filepath != null ) {
+			filepath = filepath.replace( 
+				appURL(request), "d://app/" + request.getContextPath() );
+			File file = new File( filepath );
+			if( file.exists() ) file.delete();
+		}
+	}
+	
 	//첨부파일 다운로드: 클라이언트에 파일저장
 	public void fileDownload(String filename, String filepath
 						, HttpServletRequest request 

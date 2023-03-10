@@ -84,6 +84,7 @@ $(document).on('change', '.attach-file', function(){
 	var _div = $(this).closest('div');
 	
 	if( attached ){
+		removedFile(_div);
 		
 		//파일을 선택하면 첨부파일 태그를 복제해서 붙이기
 		if( _div.children('.file-name').text()=='' )  copyFileTag();
@@ -109,11 +110,28 @@ $(document).on('change', '.attach-file', function(){
 }).on('click', '.delete-file', function(){
 	//선택한 삭제버튼에 해당하는 첨부파일태그 삭제
 	var _div = $(this).closest('div');
+	removedFile( _div );
 	_div.remove();
 	
 })
 ;
 
+//삭제한 파일id 관리하기
+function removedFile( div ){
+	
+	var removed = $('[name=removed]').val();
+	if( removed=='' ) removed = []; //[1,2] [1]
+	else 
+		removed = removed.indexOf(',')==-1 ? [removed] : removed.split(',');
+	
+	removed.push(String(div.data('file')));  //DB에서 삭제할 정보를 배열변수에 추가
+	removed = new Set(removed); //중복제거
+	console.log( 'removed 변수 : ', removed );
+	
+	$('[name=removed]').val( Array.from(removed) );
+	console.log( 'removed 태그 : ', $('[name=removed]').val() );
+	
+}
 
 function copyFileTag(){
 	var last = $("div.align").last();

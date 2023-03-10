@@ -51,13 +51,14 @@ table td { text-align: left; }
 <div class='btnSet'>
 <a class='btn-fill' id='list'>목록으로</a>
 <c:if test="${vo.writer eq loginInfo.id}">
-<a class='btn-fill'>정보수정</a>
-<a class='btn-fill'>정보삭제</a>
+<a class='btn-fill' id='modify'>정보수정</a>
+<a class='btn-fill' id='delete'>정보삭제</a>
 </c:if>
 </div>
 
 <form method='post' action='download.bo'>
 <input type='hidden' name='file'>
+<input type='hidden' name='id' value='${vo.id}'>
 <input type='hidden' name='curPage' value='${page.curPage }'>
 <input type='hidden' name='search' value='${page.search }'>
 <input type='hidden' name='keyword' value='${page.keyword }'>
@@ -66,9 +67,14 @@ table td { text-align: left; }
 </form>
 
 <script>
-$('#list').click(function(){
-	$('form').attr('action', 'list.bo')
-	$('form').submit();
+$('#list, #delete, #modify').click(function(){	
+	$('form').attr('action', $(this).attr('id') + '.bo')
+	if( $(this).attr('id')=='delete' ){
+		if( confirm('정말 삭제?') ){
+			$('form').submit();			
+		}
+	}else
+		$('form').submit();
 });
 
 $('.download').click(function(){
