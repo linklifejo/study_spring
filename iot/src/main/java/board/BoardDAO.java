@@ -42,6 +42,8 @@ public class BoardDAO implements BoardService {
 
 	@Override
 	public int board_update(BoardVO vo) {
+		if( vo.getFileInfo()!=null )
+			sql.insert("bo.fileInsert", vo);
 		return sql.update("bo.update", vo);
 	}
 
@@ -63,6 +65,27 @@ public class BoardDAO implements BoardService {
 	@Override
 	public int board_file_delete(String removed) {
 		return sql.delete("bo.fileDelete", removed);
+	}
+
+	@Override
+	public int board_comment_regist(BoardCommentVO vo) {
+		return sql.insert("bo.commentInsert", vo);
+	}
+
+	@Override
+	public int board_comment_update(BoardCommentVO vo) {
+		return sql.update("bo.commentUpdate", vo);
+	}
+
+	@Override
+	public int board_comment_delete(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<BoardCommentVO> board_comment_list(int board_id) {
+		return sql.selectList("bo.commentList", board_id);
 	}
 
 }

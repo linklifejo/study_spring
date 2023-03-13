@@ -100,8 +100,9 @@ select count(*) from notice
 where writer like '%관리%'
 ;
 
-select id, root, step, indent
-from notice;
+select title, id, root, step, indent, writedate
+from notice order by id desc;
+
 update notice set root= id;
 commit;
 

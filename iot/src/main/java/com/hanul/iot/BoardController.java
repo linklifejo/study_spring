@@ -11,9 +11,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import board.BoardCommentVO;
 import board.BoardFileVO;
 import board.BoardPageVO;
 import board.BoardServiceImpl;
@@ -80,6 +84,7 @@ public class BoardController {
 							, MultipartFile[] file) {
 		//첨부되어진 파일이 있다면 해당 파일 정보를 저장한다
 		List<BoardFileVO> files = attached_file(file, request); //파일목록
+		vo.setFileInfo(files);
 		
 		//화면에서 변경입력한 정보로 DB에 변경저장한다		
 		service.board_update(vo);
@@ -165,7 +170,31 @@ public class BoardController {
 		return "board/info";
 	}
 	
+	//방명록 댓글목록 조회 요청
+	@RequestMapping("/board/comment/list/{id}")
+	public String board_comment_list(@PathVariable int id, Model model) {
+		//해당 방명록글에 대한 댓글목록을 DB에서 조회해온다
+		List<BoardCommentVO> list = service.board_comment_list(id);
+		//화면에 출력할 수 있도록 Model에 담는다
+		model.addAttribute("list", list);
+		model.addAttribute("crlf", "\r\n");
+		model.addAttribute("lf", "\n");
+		return "board/comment/comment_list";
+	}
 	
+	//방명록 댓글 변경저장처리 요청
+	@ResponseBody @RequestMapping(value="/board/comment/update"
+									, produces="application/text; charset=utf-8")
+	public String board_comment_update(@RequestBody BoardCommentVO vo) {
+		return service.board_comment_update(vo)==1 ? "성공" : "실패";
+	}
+	
+	//방명록 댓글 저장처리 요청
+	@ResponseBody @RequestMapping("/board/comment/insert")
+	public boolean board_comment_regist(BoardCommentVO vo) {
+		//화면에서 입력한 댓글정보로 DB에 신규저장
+		return service.board_comment_regist(vo)==1 ? true : false;
+	}
 	
 	@Autowired private MemberServiceImpl member;
 	//방명록 목록화면 요청
@@ -174,9 +203,9 @@ public class BoardController {
 						, BoardPageVO page) {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
-		String id = "hong2023";
+		String id = "park2023";
 		map.put("id", id);		
-		map.put("pw", "Hong2023");
+		map.put("pw", "Park2023");
 		String salt = member.member_salt(id);
 		map.put("pw", common.getEncrypt(map.get("pw"), salt) );
 		

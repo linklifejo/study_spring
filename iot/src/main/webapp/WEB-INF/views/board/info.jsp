@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 <style type="text/css">
 table td { text-align: left; }
+#comment-regist, #comment-list { width: 600px; margin: 0 auto; text-align: left }
+#comment, textarea.modify { height: 60px; margin-top: 5px;}
+#comment-regist div { display: flex;  justify-content: space-between;}
 </style>
 </head>
 <body>
@@ -49,12 +52,21 @@ table td { text-align: left; }
 </tr>
 </table>
 <div class='btnSet'>
-<a class='btn-fill' id='list'>목록으로</a>
-<c:if test="${vo.writer eq loginInfo.id}">
-<a class='btn-fill' id='modify'>정보수정</a>
-<a class='btn-fill' id='delete'>정보삭제</a>
-</c:if>
+	<a class='btn-fill' id='list'>목록으로</a>
+	<!-- 방명록 글 작성자만 수정/삭제 가능 -->
+	<c:if test="${vo.writer eq loginInfo.id}">
+	<a class='btn-fill' id='modify'>정보수정</a>
+	<a class='btn-fill' id='delete'>정보삭제</a>
+	</c:if>
 </div>
+
+<div id='comment-regist'>
+	<div><span>댓글작성</span>
+		<a class='btn-fill-s' id='regist'>댓글등록</a>
+	</div>
+	<textarea id='comment' class='full'></textarea>
+</div>
+<div id='comment-list'></div>
 
 <form method='post' action='download.bo'>
 <input type='hidden' name='file'>
@@ -67,6 +79,48 @@ table td { text-align: left; }
 </form>
 
 <script>
+$('#regist').click(function(){
+	if( $('#comment').val()=='' ){
+		alert('댓글을 입력하세요!');
+		$('#comment').focus();
+	}else if( ${empty loginInfo} ) {
+		alert('댓글을 등록하려면 로그인하세요!');
+		location = 'login'
+	}else{
+		$.ajax({
+			url: 'board/comment/insert',
+			data: { board_id: ${vo.id}, content: $('#comment').val(), writer: '${loginInfo.id}' },
+			success: function( response ){
+				console.log( response )
+				if( response ){
+					alert('댓글이 등록되었습니다!');
+					$('#comment').val('');
+					comment_list();
+				}else{
+					alert('댓글이 등록 실패ㅠㅠ');
+				}
+			},error: function(req, text){
+				alert(text+':'+req.status);
+			}
+		});
+	}
+	
+});
+
+comment_list();
+
+//댓글목록 조회
+function comment_list(){
+	$.ajax({
+		url: 'board/comment/list/${vo.id}',
+		success: function( response ){
+			$('#comment-list').html( response );
+		},error: function(req,text){
+			alert(text+':'+req.status)
+		}
+	});
+}
+
 $('#list, #delete, #modify').click(function(){	
 	$('form').attr('action', $(this).attr('id') + '.bo')
 	if( $(this).attr('id')=='delete' ){

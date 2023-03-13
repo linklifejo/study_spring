@@ -70,6 +70,18 @@ input:focus, select:focus, textarea:focus { border-color:#3367d6; outline: none;
 
 .btnSet { margin: 20px auto; }
 
+a.btn-fill-s {
+	font-size:13px;
+	font-weight: bold;
+	color: #0000cd;
+	padding: 1px 10px;
+	background-color: #b1cdfa;
+	border: 1px solid #3367d6;	
+	border-radius: 3px;
+	height: 18px;
+    display: inline-block;
+}
+
 a.btn-fill, a.btn-empty { 
 /* 	height: 28px; */
 	padding: 3px 15px;
