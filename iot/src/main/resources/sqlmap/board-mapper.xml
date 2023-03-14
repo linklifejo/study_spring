@@ -12,6 +12,11 @@ where board_id = #{board_id}
 order by c.id desc
 </select>
 
+<!-- 방명록댓글 삭제 -->
+<delete id='commentDelete'>
+delete from board_comment where id = #{id}
+</delete>
+
 <!-- 방명록댓글 변경저장 -->
 <update id='commentUpdate'>
 update board_comment set content = #{content} where id = #{id}
