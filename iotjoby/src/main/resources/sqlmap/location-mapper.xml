@@ -6,14 +6,14 @@
 
 <!-- 신규고객정보 삽입저장 -->
 <insert id='insert'>
-insert into location( name, name_desc, position, post)
-values (#{name}, #{name_desc}, #{position}, #{post})
+insert into location( name, name_desc, position, post, address)
+values (#{name}, #{name_desc}, #{position}, #{post}, #{address})
 </insert>
 
 <!-- 해당고객정보 수정저장 -->
 <update id='update'>
 update location
-set name = #{name}, name_desc = #{name_desc}, position = #{position}, post = #{post}
+set name = #{name}, name_desc = #{name_desc}, position = #{position}, post = #{post}, address = #{address}
 where no = #{no}
 </update>
 
