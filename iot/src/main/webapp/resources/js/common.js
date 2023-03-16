@@ -2,6 +2,18 @@
  * 공통 함수
  */
  
+function center(tag, bg){
+	var width = Math.max( $(window).width() , $('body').prop('scrollWidth') );
+	var height = Math.max( $(window).height() , $('body').prop('scrollHeight') );
+	bg.css({'width': width, 'height': height });
+	var left = ($(window).width() - tag.width())/2 + $(window).scrollLeft();
+	var top = ($(window).height() - tag.height())/2 + $(window).scrollTop();
+	tag.removeClass('center').css({'left': left, 'top':top, 'position': 'absolute'});
+} 
+function loading( is ){
+	$('.loading').css('display', is ? 'block': 'none');
+} 
+ 
 function emptyCheck(){
 	var ok = true;
 	$('.chk').each(function(){

@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +31,20 @@ import member.MemberVO;
 
 @Service
 public class CommonUtility {
+	
+	//공공데이터 요청결과 JSON정보
+	public Map<String, Object> requestAPItoMap(StringBuffer url) {
+		 JSONObject json = new JSONObject( requestAPI(url.toString()) );
+		 json = json.getJSONObject("response");
+		 json = json.getJSONObject("body");
+		 int count = 0;
+		 if(  json.has("totalCount") ) count = json.getInt("totalCount");
+		 
+		 json = json.getJSONObject("items");
+		 json.put("count", count);
+		 return json.toMap();
+	}
+	
 	
 	//첨부파일 삭제
 	public void file_delete(String filepath, HttpServletRequest request) {
@@ -125,9 +141,9 @@ public class CommonUtility {
 			  BufferedReader br;
 			  System.out.print("responseCode="+responseCode);
 			  if(responseCode==200) { // 정상 호출
-			    br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			    br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
 			  } else {  // 에러 발생
-			    br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			    br = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"));
 			  }
 			  String inputLine;
 			  StringBuffer res = new StringBuffer();
@@ -186,12 +202,12 @@ public class CommonUtility {
 		
 		email.setHostName("smtp.naver.com");
 		//보내는 이인 관리자로 로그인: 아이디/비번 입력
-		email.setAuthentication("linklife", "456852aa**");		
+		email.setAuthentication("itstudydev", "Itstudy10102");		
 		email.setSSLOnConnect(true); //로그인하기
 		
 		try {
 			//보내는이
-		email.setFrom("linklife@naver.com", "지능형IoT융합 관리자");
+		email.setFrom("itstudydev@naver.com", "지능형IoT융합 관리자");
 		email.addTo(vo.getEmail(), vo.getName()); //받는이:회원가입하는사람
 		
 		email.setSubject(vo.getName() + "님 회원가입 축하!!");
@@ -235,7 +251,7 @@ public class CommonUtility {
 		email.setSSLOnConnect(true);  //로그인버튼 누르기
 		
 		try {
-		email.setFrom("linklife@naver.com", "IoT 관리자"); //보내는이 지정
+		email.setFrom("itstudydev@naver.com", "IoT 관리자"); //보내는이 지정
 		email.addTo( vo.getEmail(), vo.getName()  ); //받는이 지정
 		email.setSubject("IoT 로그인 임시 비밀번호 확인") ;//제목
 		

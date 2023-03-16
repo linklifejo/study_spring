@@ -211,14 +211,14 @@ public class BoardController {
 						, BoardPageVO page) {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
-		String id = "1111";
+		String id = "park2023";
 		map.put("id", id);		
-		map.put("pw", "1111");
+		map.put("pw", "Park2023");
 		String salt = member.member_salt(id);
 		map.put("pw", common.getEncrypt(map.get("pw"), salt) );
 		
 		MemberVO vo = member.member_login( map);
-		//session.setAttribute("loginInfo", vo);
+		session.setAttribute("loginInfo", vo);
 		//-----------------------------------------
 		
 		session.setAttribute("category", "bo");
