@@ -6,9 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.pharmacy, #list-top { width: 1200px }
+.pharmacy, .animal, #list-top { width: 1200px }
 .pharmacy td:nth-child(3) { text-align: left; }
 #popup { width: 800px; height: 600px; }
+table.animal img { width:100%; height:100px }
 </style>
 </head>
 <body>
@@ -18,6 +19,7 @@
 	<a>유기동물정보</a>
 </div>
 <div id='list-top'>
+	<ul class='animal-top'></ul>
 	<ul class='common'>
 		<li><select class='w-px100' id='pageList'>
 			<c:forEach var='i' begin='1' end='5'>
@@ -52,12 +54,47 @@ $('.api a').click(function(){
 	$('.api a').not( $(this) ).addClass('btn-empty');
 	
 	if( $(this).index()==0 ) pharmacy_list( 1 );
-	else					 animal_list();
+	else					 animal_list( 1 );
 })
 
+//유기동물 시도조회
+function animal_sido(){
+	$.ajax({
+		url: 'data/animal/sido',
+		success: function( response ){
+			console.log(response)
+			$('.animal-top').html( response );
+		}
+	})
+}
+
 //유기동물정보조회
-function animal_list(){
+function animal_list( page ){
+	if( $('#sido').length==0 ) animal_sido();
+	
 	$('#data-list').html('');
+	$('.page-list').html('');
+	loading(true);
+	var animal = {};
+	animal.pageNo  = page;
+	animal.rows  = pageList;
+	animal.sido  = $('#sido').length > 0 ? $('#sido').val() : '';
+	animal.sigungu  = $('#sigungu').length > 0 ? $('#sigungu').val() : '';
+	
+	$.ajax({
+		type: 'post',
+		contentType: 'application/json',
+		url: 'data/animal/list',
+		data: JSON.stringify( animal ),
+		success: function( response ){
+			$('#data-list').html( response );
+			loading(false);
+		},error: function(){
+			
+			loading(false);
+		}
+	});
+	
 }
 
 $('#pageList').change(function(){
@@ -77,6 +114,7 @@ function pharmacy_list( page ){
 	+ "</thead>"
 	+ "</table>";	
 	$('#data-list').html( tag );
+	$('.page-list').html('');
 	
 	tag = '';
 	$.ajax({
@@ -85,7 +123,8 @@ function pharmacy_list( page ){
 		success: function( response ){
 			console.log( response );
 			$(response.item).each(function(){
-				tag += "<tr><td><a class='map'>"+ this.yadmNm +"</a></td>"
+				tag += "<tr><td><a class='map' data-x='"
+							+ this.XPos +"' data-y='"+ this.YPos +"'>"+ this.yadmNm +"</a></td>"
 					+  "<td>"+ (this.telno ? this.telno : '-') +"</td>"
 					+  "<td>"+ this.addr +"</td>"
 					+  "</tr>";	
@@ -128,17 +167,47 @@ function makePage( totalList, curPage ){
 }
 
 $(function(){
-	$('.api a').eq(0).trigger('click');	
+	$('.api a').eq(1).trigger('click');	
 });
 
 $(document).on('click', '.page-list a', function(){
-	pharmacy_list( $(this).data('page') );
+	if( $('.pharmacy').length > 0 ) pharmacy_list( $(this).data('page') );
+	else if( $('.animal').length > 0 ) animal_list( $(this).data('page') );
 	
 }).on('click', '.map', function(){
+	if(  $(this).data('x')=='undefined' || $(this).data('y')=='undefined' ){
+		alert('위경도가 없어 위치를 표시할 수 없습니다!');
+		return;
+	}
+	
 	$('#popup, #popup-background').css('display', 'block');
+	//latitude(위도):y, longitude(경도):x
+	var x = $(this).data('x'), y = $(this).data('y');
+	var xy  = new kakao.maps.LatLng(y, x); 
 	
-	//295364ba6aaf47ea28434befac53e135
+	var container = document.getElementById('popup'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: xy, //지도의 중심좌표.
+		level: 3 //지도의 레벨(확대, 축소 정도)
+	};
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴	
+
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: xy   // 마커가 표시될 위치
+	});
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
 	
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+	    position : xy, 
+	    content : '<div style="padding:5px;">'+ $(this).text() +'</div>' 
+	});
+	  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker); 
+
 }).on('click', '#popup-background', function(){
 	$('#popup, #popup-background').css('display', 'none');
 	
