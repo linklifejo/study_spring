@@ -2,6 +2,8 @@ package com.hanul.iot;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +48,19 @@ public class DataController {
 	}
 	
 	
+	//유기동물 보호소조회 요청
+	@RequestMapping("/data/animal/shelter")
+	public String animal_shelter(String sido, String sigungu, Model model) {
+		StringBuffer url = new StringBuffer( animalURL + "shelter" );
+		url.append("?serviceKey=").append(key);
+		url.append("&_type=json");
+		url.append("&upr_cd=").append(sido);
+		url.append("&org_cd=").append(sigungu);
+		model.addAttribute("list", common.requestAPItoMap(url) );
+		return "data/animal/shelter";
+	}
+	
+	
 	//유기동물정보조회 요청
 	@RequestMapping("/data/animal/list")
 	public Object animal_list( @RequestBody HashMap<String, Object> map, Model model ) {
@@ -55,11 +70,26 @@ public class DataController {
 		url.append("&numOfRows=").append( map.get("rows") );
 		url.append("&upr_cd=").append( map.get("sido") );
 		url.append("&org_cd=").append( map.get("sigungu") );
+		url.append("&care_reg_no=").append( map.get("shelter") );
+		url.append("&upkind=").append( map.get("upkind") );
+		url.append("&kind=").append( map.get("kind") );
 		url.append("&_type=json");
 		model.addAttribute("list", common.requestAPItoMap(url));
 		model.addAttribute("page", map.get("pageNo") );
 		return "data/animal/animal_list";
 	}
+	
+	//유기동물 품종조회 요청
+	@RequestMapping("/data/animal/kind")
+	public String animal_kind(Model model, String upkind) {
+		StringBuffer url = new StringBuffer( animalURL + "kind");
+		url.append("?serviceKey=").append(key);
+		url.append("&_type=json");
+		url.append("&up_kind_cd=").append(upkind);
+		model.addAttribute("list", common.requestAPItoMap(url) );
+		return "data/animal/kind";
+	}
+	
 	
 	//약국정보조회 요청
 	@ResponseBody @RequestMapping("/data/pharmacy")
@@ -75,7 +105,8 @@ public class DataController {
 	
 	//공공데이터 목록화면 요청
 	@RequestMapping("/list.da")
-	public String list() {
+	public String list(HttpSession session) {
+		session.setAttribute("category", "da");
 		return "data/list";
 	}
 }

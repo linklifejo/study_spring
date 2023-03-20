@@ -16,6 +16,15 @@ $('#sigungu').change(function(){
 function animal_shelter(){
 	$('#shelter').closest('li').remove();
 	if( $('#sigungu').val()=='' ) return;
+	
+	$.ajax({
+		url: 'data/animal/shelter',
+		data: { sido:$('#sido').val(), sigungu:$('#sigungu').val() },
+		success: function(response){
+			console.log(response);
+			$('#sigungu').closest('li').after( response );
+		}
+	});
 		
 	
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,7 +30,9 @@ public class HomeController {
 	@Autowired private MemberServiceImpl member;
 	@Autowired private CommonUtility common;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping("/")
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	@RequestMapping(value = "/", method = { RequestMethod.POST,  RequestMethod.GET})
 	public String home(Locale locale, Model model, HttpSession session) {
 		/*
 		//이미 저장된 비번을 암호화해서 DB에 저장해두기: 나중에 삭제 ------------------

@@ -64,8 +64,23 @@ function animal_sido(){
 		success: function( response ){
 			console.log(response)
 			$('.animal-top').html( response );
+			animal_type();
 		}
 	})
+}
+
+//축종
+function animal_type(){
+	var tag
+	= "<li>"
+	+ "<select class='w-px100' id='upkind'>"
+	+ "<option value=''>축종선택</option>"
+	+ "<option value='417000'>개</option>"
+	+ "<option value='422400'>고양이</option>"
+	+ "<option value='429900'>기타</option>"
+	+ "</select>"
+	+ "</li>";
+	$('.animal-top').append( tag );
 }
 
 //유기동물정보조회
@@ -80,6 +95,9 @@ function animal_list( page ){
 	animal.rows  = pageList;
 	animal.sido  = $('#sido').length > 0 ? $('#sido').val() : '';
 	animal.sigungu  = $('#sigungu').length > 0 ? $('#sigungu').val() : '';
+	animal.shelter  = $('#shelter').length > 0 ? $('#shelter').val() : '';
+	animal.upkind  = $('#upkind').length > 0 ? $('#upkind').val() : '';
+	animal.kind  = $('#kind').length > 0 ? $('#kind').val() : '';
 	
 	$.ajax({
 		type: 'post',
@@ -104,6 +122,8 @@ $('#pageList').change(function(){
 
 //약국정보조회
 function pharmacy_list( page ){
+	$('.animal-top').empty();
+	
 	loading(true);
 	var tag
 	= "<table class='tb-list pharmacy'>"	
@@ -115,7 +135,7 @@ function pharmacy_list( page ){
 	+ "</table>";	
 	$('#data-list').html( tag );
 	$('.page-list').html('');
-	
+		
 	tag = '';
 	$.ajax({
 		data: {pageNo: page, rows:pageList},
@@ -167,7 +187,7 @@ function makePage( totalList, curPage ){
 }
 
 $(function(){
-	$('.api a').eq(1).trigger('click');	
+	$('.api a').eq(0).trigger('click');	
 });
 
 $(document).on('click', '.page-list a', function(){
@@ -211,7 +231,26 @@ $(document).on('click', '.page-list a', function(){
 }).on('click', '#popup-background', function(){
 	$('#popup, #popup-background').css('display', 'none');
 	
+}).on('change', '#upkind', function(){
+	animal_kind();
+	animal_list(1);
+	
 });
+
+//축종에 대한 품종조회
+function animal_kind(){
+	$('#kind').closest('li').remove();
+	if( $('#upkind').val()=='' ) return;
+	
+	$.ajax({
+		url: 'data/animal/kind',
+		data: { upkind:$('#upkind').val() },
+		success: function( response ){
+			$('#upkind').closest('li').after( response )
+		}
+		
+	});
+}
 </script>
 </body>
 </html>

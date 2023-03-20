@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:if test='${empty list.item}'>
+<table class='tb-list animal'>
+<tr><th>해당 유기동물이 없습니다</th>
+</tr>
+</table>
+</c:if>
 <c:forEach items="${list.item}" var="vo">
 <table class='tb-list animal'>
 <colgroup>
