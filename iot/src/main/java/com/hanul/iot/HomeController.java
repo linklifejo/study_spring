@@ -24,6 +24,13 @@ import member.MemberVO;
  */
 @Controller
 public class HomeController {
+
+	//시각화화면 요청
+	@RequestMapping("/visual/list")
+	public String list(HttpSession session) {
+		session.setAttribute("category", "vi");
+		return "visual/list";
+	}
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	

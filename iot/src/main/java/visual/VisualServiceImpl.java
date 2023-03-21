@@ -3,12 +3,26 @@ package visual;
 import java.util.HashMap;
 import java.util.List;
 
-public class VisualServiceImpl implements VisualService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+public class VisualServiceImpl implements VisualService {
+	@Autowired private VisualDAO dao;
+	
 	@Override
 	public List<HashMap<String, Object>> department() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.department();
+	}
+
+	@Override
+	public List<HashMap<String, Object>> hirement_year() {
+		return dao.hirement_year();
+	}
+
+	@Override
+	public List<HashMap<String, Object>> hirement_month() {
+		return dao.hirement_month();
 	}
 
 }

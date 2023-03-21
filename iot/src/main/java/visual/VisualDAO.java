@@ -3,12 +3,28 @@ package visual;
 import java.util.HashMap;
 import java.util.List;
 
-public class VisualDAO implements VisualService{
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class VisualDAO implements VisualService{
+	@Autowired @Qualifier("hr") private SqlSession sql;
+	
 	@Override
 	public List<HashMap<String, Object>> department() {
-		// TODO Auto-generated method stub
-		return null;
+		return sql.selectList("vi.department");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> hirement_year() {
+		return sql.selectList("vi.hirement_year");
+	}
+
+	@Override
+	public List<HashMap<String, Object>> hirement_month() {
+		return sql.selectList("vi.hirement_month");
 	}
 
 }
