@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class LocationVO {
-	private int no;
-	private String type, name, name_desc, position,post,address;
+	private int id;
+	private String type, name, name_desc, post,address,latitude,longitude;
 
 }

@@ -22,8 +22,8 @@ public class LocationDAO implements LocationService {
 	}
 
 	@Override
-	public LocationVO location_info(int no) {
-		return sql.selectOne("lo.info", no);
+	public LocationVO location_info(int id) {
+		return sql.selectOne("lo.info", id);
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class LocationDAO implements LocationService {
 	}
 
 	@Override
-	public int location_delete(int no) {
-		return sql.delete("lo.delete", no);
+	public int location_delete(int id) {
+		return sql.delete("lo.delete", id);
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.hanul.iot;
 
-import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,11 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import common.CommonUtility;
 import member.MemberServiceImpl;
-import member.MemberVO;
 
 
 /**
@@ -25,6 +23,26 @@ import member.MemberVO;
 @Controller
 public class HomeController {
 
+	//오류처리
+	@RequestMapping("/error")
+	public String error(HttpServletRequest request, Model model ) {
+		Throwable exception 
+			= (Throwable)request.getAttribute("javax.servlet.error.exception");
+		
+		StringBuffer msg = new StringBuffer();
+		while( exception != null ) {
+			msg.append("<p>").append( exception.getMessage()  ).append("</p>");
+			exception = exception.getCause();
+		}
+		model.addAttribute("msg", msg.toString() );
+		
+		int code = (Integer)request.getAttribute("javax.servlet.error.status_code");
+		return "default/error/" + (code==404 ? "404" : "common");
+	}
+	
+	
+	
+	
 	//시각화화면 요청
 	@RequestMapping("/visual/list")
 	public String list(HttpSession session) {

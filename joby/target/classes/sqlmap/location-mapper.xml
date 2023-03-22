@@ -6,25 +6,27 @@
 
 <!-- 신규고객정보 삽입저장 -->
 <insert id='insert'>
-insert into location( name, name_desc, position, post, address)
-values (#{name}, #{name_desc}, #{position}, #{post}, #{address})
+insert into location( name, name_desc, latitude,longitude, post, address)
+values (#{name}, #{name_desc}, #{latitude}, #{longitude}, #{post}, #{address})
 </insert>
 
 <!-- 해당고객정보 수정저장 -->
 <update id='update'>
 update location
-set name = #{name}, name_desc = #{name_desc}, position = #{position}, post = #{post}, address = #{address}
-where no = #{no}
+set name = #{name}, name_desc = #{name_desc}, latitude = #{latitude}, longitude = #{longitude}, post = #{post}, address = #{address}
+where id = #{id}
 </update>
 
 <!-- 해당고객정보 삭제 -->
 <delete id='delete'>
-delete from location where no = #{no}
+delete from location where id = #{id}
 </delete>
 
 <!-- 해당고객정보조회 -->
 <select id='info' resultType='location.LocationVO'>
-select * from location where no = #{no}
+select * from location where id = #{id}
+
+
 </select>
 
 <!-- 고객목록조회 -->

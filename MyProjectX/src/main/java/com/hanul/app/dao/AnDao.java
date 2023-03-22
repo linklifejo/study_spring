@@ -28,10 +28,10 @@ public class AnDao {
 
 	}
 	
-	//7. È¸¿ø°¡ÀÔ : command¿¡¼­ ³Ñ¾î¿Â °ªÀ» ¹Þ´Â´Ù
+	
 	public int anJoin(MemberDTO dto) {
 		
-		// µ¥ÀÌÅÍº£ÀÌ½º¿Í ¿¬°áÇÏ¿© ¿øÇÏ´Â °á°ú¹°À» ¾ò´Â´Ù
+		
 		Connection connection = null;
 		PreparedStatement prepareStatement = null;
 		int state = -100;
@@ -45,9 +45,9 @@ public class AnDao {
 			state = prepareStatement.executeUpdate();
 			
 			if (state > 0) {
-				System.out.println(state + "»ðÀÔ¼º°ø");				
+				System.out.println(state + "ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½");				
 			} else {
-				System.out.println(state + "»ðÀÔ½ÇÆÐ");
+				System.out.println(state + "ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½");
 			}
 			
 		} catch (Exception e) {			
@@ -68,12 +68,12 @@ public class AnDao {
 			}
 		}
 
-		//8. ¿øÇÏ´Â °ªÀ» ¸®ÅÏ½ÃÅ²´Ù
+		//8. ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï½ï¿½Å²ï¿½ï¿½
 		return state;
 		
 	}
 	
-	// ·Î±×ÀÎ ÇÑ ÈÄ ·Î±×ÀÎÇÑ ¸â¹ö µ¥ÀÌÅÍ¸¦ º¸³½´Ù
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public MemberDTO anLogin(String idin, String pwin) {
 
     	MemberDTO adto = null;
@@ -128,7 +128,7 @@ public class AnDao {
 
 	}
 
-	// ¸ðµç ¸â¹öÀÇ Á¤º¸¸¦ º¸³½´Ù
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public ArrayList<MemberDTO> selectMembers() {
 		
 		ArrayList<MemberDTO> dtos = new ArrayList<MemberDTO>();
@@ -196,12 +196,12 @@ public class AnDao {
 			int state = prepareStatement.executeUpdate();
 			
 			if (state > 0) {
-				System.out.println(state + "»èÁ¦¼º°ø");				
+				System.out.println(state + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");				
 			} else {
-				System.out.println(state + "»èÁ¦½ÇÆÐ");
+				System.out.println(state + "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			}
 			
-			// »èÁ¦ÈÄ ´Ù½Ã ¸â¹ö Å×ÀÌºí ³»¿ëÀ» °¡Á®¿Â´Ù
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½
 			query = "select * from member"	;	
 			
 			prepareStatement = connection.prepareStatement(query);
@@ -270,7 +270,7 @@ public class AnDao {
 //				adtos.add(adto);			
 //			}	
 //			
-//			System.out.println("adtosÅ©±â" + adtos.size());
+//			System.out.println("adtosÅ©ï¿½ï¿½" + adtos.size());
 //			
 //		} catch (Exception e) {
 //			
@@ -318,9 +318,9 @@ public class AnDao {
 //			state = prepareStatement.executeUpdate();
 //			
 //			if (state > 0) {
-//				System.out.println(state + "»ðÀÔ¼º°ø");				
+//				System.out.println(state + "ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½");				
 //			} else {
-//				System.out.println(state + "»ðÀÔ½ÇÆÐ");
+//				System.out.println(state + "ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½");
 //			}
 //	
 //		} catch (Exception e) {
@@ -356,7 +356,7 @@ public class AnDao {
 //		int state = -1;
 //	
 //		try {			
-//			// ¾ÆÀÌµð´Â ¼öÁ¤ÇÒ¼ö ¾øÀ½			
+//			// ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½			
 //			connection = dataSource.getConnection();
 //			String query = "update android set " 			             
 //		             + " name = '" + name + "' "
@@ -368,10 +368,10 @@ public class AnDao {
 //			state = prepareStatement.executeUpdate();
 //	
 //			if (state > 0) {
-//				System.out.println("¼öÁ¤1¼º°ø");
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½");
 //				
 //			} else {
-//				System.out.println("¼öÁ¤1½ÇÆÐ");
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½");
 //			}
 //	
 //		} catch (Exception e) {
@@ -408,7 +408,7 @@ public class AnDao {
 //		int state = -1;
 //	
 //		try {			
-//			// ¾ÆÀÌµð´Â ¼öÁ¤ÇÒ¼ö ¾øÀ½			
+//			// ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½			
 //			connection = dataSource.getConnection();
 //			String query = "update android set " 			             
 //		             + " name = '" + name + "' "
@@ -419,10 +419,10 @@ public class AnDao {
 //			state = prepareStatement.executeUpdate();
 //	
 //			if (state > 0) {
-//				System.out.println("¼öÁ¤2¼º°ø");
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½");
 //				
 //			} else {
-//				System.out.println("¼öÁ¤2½ÇÆÐ");
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½");
 //			}
 //	
 //		} catch (Exception e) {
@@ -467,9 +467,9 @@ public class AnDao {
 //			state = prepareStatement.executeUpdate();
 //
 //			if (state > 0) {
-//				System.out.println("»èÁ¦¼º°ø");				
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");				
 //			} else {
-//				System.out.println("»èÁ¦½ÇÆÐ");
+//				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 //			}
 //
 //		} catch (Exception e) {

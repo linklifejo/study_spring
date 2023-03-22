@@ -20,8 +20,8 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public LocationVO location_info(int no) {
-		return dao.location_info(no);
+	public LocationVO location_info(int id) {
+		return dao.location_info(id);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public int location_delete(int no) {
-		return dao.location_delete(no);
+	public int location_delete(int id) {
+		return dao.location_delete(id);
 	}
 
 }

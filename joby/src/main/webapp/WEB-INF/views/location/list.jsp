@@ -15,14 +15,16 @@
 <thead>
 	<tr><th class='w-px140'>산이름</th>
 		<th>추가설명</th>
-		<th class='w-px160'>좌표</th>
+		<th class='w-px160'>위도</th>
+		<th class='w-px160'>경도</th>
 	</tr>
 </thead>
 <tbody>
 <c:forEach items='${list}' var='vo'>
-	<tr><td><a href='info.lo?no=${vo.no}'>${vo.name }</a></td>
+	<tr><td><a href='info.lo?id=${vo.id}'>${vo.name }</a></td>
 		<td>${vo.name_desc }</td>
-		<td>${vo.position }</td>
+		<td>${vo.latitude }</td>
+		<td>${vo.longitude }</td>
 	</tr>
 </c:forEach>
 	

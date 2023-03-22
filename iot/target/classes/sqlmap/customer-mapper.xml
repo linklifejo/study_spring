@@ -29,7 +29,7 @@ select * from customer where id = #{id}
 
 <!-- 고객목록조회 -->
 <select id='list' resultType='customer.CustomerVO'>
-select * from customer order by name
+select * from customers order by name
 </select>
 
 </mapper>  

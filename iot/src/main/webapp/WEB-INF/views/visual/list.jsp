@@ -37,6 +37,7 @@
 		<label><input type='radio' name='graph' value='donut'>도넛그래프</label>
 	</div>
 	<div class='tab'>
+		<label><input type='checkbox' id='top3'>TOP3 부서</label>
 		<label><input type='radio' name='unit' value='year' checked>년도별</label>
 		<label><input type='radio' name='unit' value='month'>월별</label>
 	</div>
@@ -70,8 +71,60 @@ $('#tabs li').click(function(){
 //채용인원수 그래프
 function hirement(){
 	init();
-	
 	var unit = $('[name=unit]:checked').val();
+	if( $('#top3').prop('checked') ) 
+		hirement_top3_chart( unit );
+	else hirement_chart( unit );
+}
+
+//채용인원수 상위3개 부서에 대한 년도별/월별 채용인원수 그래프
+function hirement_top3_chart( unit ){
+	$.ajax({
+		url: '<c:url value="/visual/hirement/top3/" />' + unit,
+		success: function( response ){
+			//console.log( response )
+			var info = [];
+			if( unit=='year' ){
+				info.push( [ '부서명', '2001년', '2002년', '2003년', '2004년'
+							, '2005년', '2006년', '2007년', '2008년', '2023년' ] );
+				$(response).each(function(){
+					info.push( new Array(this.DEPARTMENT_NAME, this.Y2001, this.Y2002, this.Y2003, this.Y2004
+										, this.Y2005, this.Y2006, this.Y2007, this.Y2008, this.Y2023 ) )
+				})
+			}else{
+				info.push( new Array('부서명', '01월', '02월', '03월', '04월', '05월', '06월'
+										, '07월', '08월', '09월', '10월', '11월', '12월') );
+				$(response).each(function(){
+					info.push( [ this.DEPARTMENT_NAME, this.M01, this.M02, this.M03, this.M04, this.M05
+						, this.M06, this.M07, this.M08, this.M09, this.M10, this.M11, this.M12 ] );
+				})
+			}
+			//console.log( 'info> ',info )
+			make_chart_hirement_top3( info, unit );
+		}
+	})
+}
+
+
+function make_chart_hirement_top3( info, unit ){
+	c3.generate({
+		bindto: '#graph',
+		data: { columns:info, x:'부서명', type: unit=='year' ? 'bar' : 'line', labels:true },
+		axis: { x: {type:'category'}
+			, y: { label:{ text: (unit=='year' ? '년도' : '월') + '별 채용인원수', position:'outer-middle' } } },
+		size: { height:450 },
+		bar: { width:20 },
+		grid: { y:{show:true} },
+		padding: { bottom:50 },
+		legend: { item: { tile:{width:15, height:15} },  padding:40 },
+		
+	})
+	$(".c3-legend-item").css('font-size', '15px');
+	$('.c3-line').css('stroke-width', '3px');
+}
+
+//회사의 년도별/월별 채용인원수 그래프
+function hirement_chart( unit ){
 	$.ajax({
 		url: '<c:url value="/visual/hirement/"/>' + unit,
 		success: function( response ){
@@ -90,13 +143,20 @@ function make_chart_hirement( info ){
 	console.log( info )
 	c3.generate({
 		bindto: '#graph',
-		data: { columns: info, type: 'bar' }
+		data: { color: function(c, d){ return colors[ Math.floor(d.value/10) ] } 
+			, labels:true, columns: info, type: 'bar', x:$('[name=unit]:checked').val()  },
+		axis: { x:{ type: 'category' }, y:{ label: { text: info[1][0] , position:'outer-top' } } },
+		size: { height:450 },
+		bar: { width:30 },
+		grid: { y:{show:true}/* , x:{show:true} */ },
+		legend: { hide:true },
 	})
+	$('#legend').css('display', 'flex');
 }
 
 
 
-$('[name=unit]').change(function(){
+$('[name=unit], #top3').change(function(){
 	hirement();
 })
 
@@ -227,7 +287,7 @@ function line_chart( info ){
 }
 
 $(function(){
-	$('#tabs li').eq(0).trigger( 'click' );
+	$('#tabs li').eq(1).trigger( 'click' );
 	$('.legend').each(function(idx){
 		$(this).css('background-color', colors[idx])
 	})

@@ -24,8 +24,11 @@
            <td><input type='text' name='name_desc' value='${vo.name_desc }'></td>
 	
 	</tr>
-	<tr><th>좌표</th>
-		<td><input type='text' name='position' value='${vo.position }'></td>
+	<tr><th>위도</th>
+		<td><input type='text' name='latitude' value='${vo.latitude }'></td>
+	</tr>
+	<tr><th>경도</th>
+		<td><input type='text' name='longitude' value='${vo.longitude }'></td>
 	</tr>
 	<tr><th>주소</th>
 		<td><a class='btn-fill btn-post'>우편번호찾기</a>
@@ -35,12 +38,12 @@
 		</td>
 	</tr>
 	</table>
-	<input type='hidden' name='no' value='${vo.no}'>
+	<input type='hidden' name='id' value='${vo.id}'>
 	</form>
 
 	<div class='btnSet'>
 		<a class='btn-fill' onclick="$('form').submit()">저장</a>
-		<a class='btn-empty' href='info.lo?no=${vo.no}'>취소</a>
+		<a class='btn-empty' href='info.lo?id=${vo.id}'>취소</a>
 	</div>
 
 <script>
@@ -74,7 +77,7 @@ $('.btn-fill').click(function(){
 });
 function fn_delete(){
 	if( confirm('[ ${vo.name} ] 정말 삭제?') ){
-	 	location.href='delete.cu?no=${vo.no}'
+	 	location.href='delete.cu?id=${vo.id}'
 	}
 }
 

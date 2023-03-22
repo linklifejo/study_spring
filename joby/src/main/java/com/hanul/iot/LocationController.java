@@ -38,16 +38,16 @@ public class LocationController {
 		//화면에서 변경입력한 정보를 DB에 변경저장한다
 		service.location_update(vo);
 		//응답화면연결-고객정보
-		return "redirect:info.lo?no=" + vo.getNo();
+		return "redirect:info.lo?id=" + vo.getId();
 	}
 	
 	
 	
 	//선택한 고객정보 수정화면 요청
 	@RequestMapping("/modify.lo")
-	public String modify(Model model, int no) {
+	public String modify(Model model, int id) {
 		//선택한 고객정보를 DB에서 조회해와
-		LocationVO vo = service.location_info(no);
+		LocationVO vo = service.location_info(id);
 		//고객수정화면에서 조회한 정보를 출력할 수 있도록 Model에 담는다
 		model.addAttribute("vo", vo);
 		//응답화면연결 - 고객수정
@@ -57,9 +57,9 @@ public class LocationController {
 	
 	//선택한 고객정보 삭제처리 요청
 	@RequestMapping("/delete.lo")
-	public String delete(int no) {
+	public String delete(int id) {
 		//선택한 고객정보를 DB에서 삭제
-		service.location_delete(no);
+		service.location_delete(id);
 		//응답화면연결 - 고객목록
 		return "redirect:list.lo";
 	}
@@ -67,9 +67,9 @@ public class LocationController {
 	
 	//선택한 고객정보화면 요청
 	@RequestMapping("/info.lo")
-	public String info(int no, Model model) {
+	public String info(int id, Model model) {
 		//해당 고객정보를 DB에서 조회해온다
-		LocationVO vo = service.location_info(no);
+		LocationVO vo = service.location_info(id);
 		//화면에 출력할 수 있도록 Model에 attribute로 담는다
 		model.addAttribute("vo", vo);
 		

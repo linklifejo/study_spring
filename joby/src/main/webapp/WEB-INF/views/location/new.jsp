@@ -21,8 +21,11 @@
 	<tr><th>추가설명</th>
 		<td><input type='text' name='name_desc' ></td>
 	</tr>
-	<tr><th>좌표</th>
-		<td><input type='text' name='position' ></td>
+	<tr><th>위도</th>
+		<td><input type='text' name='latitude' ></td>
+	</tr>
+	<tr><th>경도</th>
+		<td><input type='text' name='longitude' ></td>
 	</tr>
 	<tr><th>주소</th>
 		<td><a class='btn-fill btn-post'>우편번호찾기</a>
@@ -36,7 +39,7 @@
 
 	<div class='btnSet'>
 		<a class='btn-fill' onclick="$('form').submit()">저장</a>
-		<a class='btn-empty' href='list.cu'>취소</a>
+		<a class='btn-empty' href='list.lo'>취소</a>
 	</div>
 <script>
 
