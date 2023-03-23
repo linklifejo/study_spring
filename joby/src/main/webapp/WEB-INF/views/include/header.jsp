@@ -10,6 +10,7 @@
 			<li><a ${category eq 'bo' ? "class='active'" : ''} href='list.bo'>방명록</a></li>
 			<li><a ${category eq 'lo' ? "class='active'" : ''} href='list.lo'>전국산정보</a></li>
 			<li><a ${category eq 'co' ? "class='active'" : ''} href='list.co'>코스정보</a></li>
+			<li><a ${category eq 'go' ? "class='active'" : ''} href='list.go'>탐방정보</a></li>
 			<li><a>공공데이터</a></li>
 			<li><a>시각화</a></li>
 		</ul>

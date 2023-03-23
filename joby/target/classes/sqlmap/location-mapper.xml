@@ -6,14 +6,14 @@
 
 <!-- 신규고객정보 삽입저장 -->
 <insert id='insert'>
-insert into location( name, name_desc, latitude,longitude, post, address)
-values (#{name}, #{name_desc}, #{latitude}, #{longitude}, #{post}, #{address})
+insert into location( locname, name_desc, latitude,longitude, post, address)
+values (#{locname}, #{name_desc}, #{latitude}, #{longitude}, #{post}, #{address})
 </insert>
 
 <!-- 해당고객정보 수정저장 -->
 <update id='update'>
 update location
-set name = #{name}, name_desc = #{name_desc}, latitude = #{latitude}, longitude = #{longitude}, post = #{post}, address = #{address}
+set locname = #{locname}, name_desc = #{name_desc}, latitude = #{latitude}, longitude = #{longitude}, post = #{post}, address = #{address}
 where id = #{id}
 </update>
 
@@ -31,7 +31,7 @@ select * from location where id = #{id}
 
 <!-- 고객목록조회 -->
 <select id='list' resultType='location.LocationVO'>
-select * from location order by name
+select * from location order by locname
 </select>
 
 </mapper>  

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import course.CourseVO;
+import location.LocationVO;
 import course.CourseServiceImpl;
 
 @Controller
@@ -28,7 +29,9 @@ public class CourseController {
 	
 	//신규고객등록화면 요청
 	@RequestMapping("/new.co")
-	public String course() {
+	public String course(Model model) {
+		List<LocationVO> list = service.location_list();
+		model.addAttribute("list", list);
 		return "course/new";
 	}
 	
@@ -48,8 +51,10 @@ public class CourseController {
 	public String modify(Model model, int id) {
 		//선택한 고객정보를 DB에서 조회해와
 		CourseVO vo = service.course_info(id);
+		List<LocationVO> list = service.location_list();
 		//고객수정화면에서 조회한 정보를 출력할 수 있도록 Model에 담는다
 		model.addAttribute("vo", vo);
+		model.addAttribute("list", list);
 		//응답화면연결 - 고객수정
 		return "course/modify";
 	}

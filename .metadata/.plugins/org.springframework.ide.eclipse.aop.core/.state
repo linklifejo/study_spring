@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
 <aop-project name="MyProject_App"/>
+<aop-project name="hello"/>
 <aop-project name="iot"/>
 <aop-project name="joby"/>
 <aop-project name="web"/>

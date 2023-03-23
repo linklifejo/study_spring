@@ -21,7 +21,7 @@
 </thead>
 <tbody>
 <c:forEach items='${list}' var='vo'>
-	<tr><td><a href='info.lo?id=${vo.id}'>${vo.name }</a></td>
+	<tr><td><a href='info.lo?id=${vo.id}'>${vo.locname }</a></td>
 		<td>${vo.name_desc }</td>
 		<td>${vo.latitude }</td>
 		<td>${vo.longitude }</td>

@@ -17,7 +17,7 @@
 		<col>
 	</colgroup>
 	<tr><th>산이름</th>
-		<td><input type='text' name='name' value='${vo.name }'></td>
+		<td><input type='text' name='locname' value='${vo.locname }'></td>
 	</tr>
 	<tr><th>추가설명</th>
 	
@@ -66,9 +66,9 @@ $('.btn-post').on('click', function(){
     }).open();
 });
 $('.btn-fill').click(function(){
-	if( $('[name=name]').val()=='' ){
+	if( $('[name=locname]').val()=='' ){
 		alert('이름을 입력하세요!');
-		$('[name=name]').focus();
+		$('[name=locname]').focus();
 	}
 	if( $('[name=post]').val()=='' ){
 		alert('주소를 입력하세요!');
@@ -76,7 +76,7 @@ $('.btn-fill').click(function(){
 	}
 });
 function fn_delete(){
-	if( confirm('[ ${vo.name} ] 정말 삭제?') ){
+	if( confirm('[ ${vo.locname} ] 정말 삭제?') ){
 	 	location.href='delete.cu?id=${vo.id}'
 	}
 }

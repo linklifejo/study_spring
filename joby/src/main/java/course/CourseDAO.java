@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import location.LocationVO;
+
 @Repository
 public class CourseDAO implements CourseService {
 	@Autowired @Qualifier("bteam") private SqlSession sql;
@@ -35,5 +37,13 @@ public class CourseDAO implements CourseService {
 	public int course_delete(int id) {
 		return sql.delete("co.delete", id);
 	}
+
+	@Override
+	public List<LocationVO> location_list() {
+		// TODO Auto-generated method stub
+		return sql.selectList("co.loc_list");
+	}
+
+
 
 }

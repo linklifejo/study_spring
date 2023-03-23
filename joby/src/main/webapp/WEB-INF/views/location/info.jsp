@@ -15,7 +15,7 @@
 		<col>
 	</colgroup>
 	<tr><th>산이름</th>
-		<td>${vo.name }</td>
+		<td>${vo.locname }</td>
 	</tr>
 	<tr><th>추가설명</th>
 		<td>${vo.name_desc }</td>
@@ -39,7 +39,7 @@
 
 <script>
 function fn_delete(){
-	if( confirm('[ ${vo.name} ] 정말 삭제?') ){
+	if( confirm('[ ${vo.locname} ] 정말 삭제?') ){
 	 	location.href='delete.lo?id=${vo.id}'
 	}
 }

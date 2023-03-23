@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:fragment="head">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel='icon' th:href='@{/imgs/hanul.ico}'>
+<link rel='stylesheet' type='text/css' th:href='@{/css/common.css}'>		
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css'>		
+<script src='https://code.jquery.com/jquery-3.6.3.min.js'></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script th:src='@{/js/common.js}'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js'></script>
+<style>
+header { 
+	border-bottom: 1px solid #aaa;
+	display: flex; align-items: center; justify-content: space-between;
+	padding: 0 100px;
+}
+header nav ul { font-size: 18px; font-weight: bold; }
+header ul { display: flex; }
+header nav ul li:not(:first-child) { margin-left: 50px }
+header nav a:hover, header nav a.active { color:#0730fa  }
+footer { font-size:14px; border-top: 1px solid #aaa; padding: 15px 0 }
+</style>
+</head>
+
+<body>
+<header th:fragment="header">
+	<nav>
+		<ul>
+			<li><a th:href='@{/}'><img th:src='@{/imgs/hanul.logo.png}'></a></li>
+			<li><a th:href="@{/customer/list}">고객관리</a></li>
+			<li><a>사원관리</a></li>
+		</ul>
+	</nav>
+</header>
+<footer th:fragment="footer">
+	<div>업체명: 한울직업전문학교</div>
+	<div>연락처: 062-362-7797</div>
+	<div>&copy; 2023</div>
+</footer>
+</body>
+</html>

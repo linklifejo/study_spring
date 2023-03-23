@@ -15,7 +15,7 @@
 		<col>
 	</colgroup>
 	<tr><th>코스명</th>
-		<td><input type='text' name='name' ></td>
+		<td><input type='text' name='corname' ></td>
 	</tr>
 	<!--1: 위험 2: A코스 3: B코스 4: C코스 -->
 	<tr><th>구분</th>
@@ -27,8 +27,15 @@
 			
 		</td>
 	</tr>
-	<tr><th>산코드</th>
-		<td><input type='text' name='location_id' ></td>
+	<tr><th>산 선택</th>
+		<td><select class='w-px120' name='viewType'>
+		<c:forEach items="${list}" var="vo">
+		<option value='vo.location_id'>${vo.locname}</option>
+		</c:forEach>
+		</select>
+	</td>
+
+		
 	</tr>
 	</table>
 	</form>

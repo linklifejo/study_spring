@@ -16,7 +16,7 @@
 		<col>
 	</colgroup>
 	<tr><th>산이름</th>
-		<td><input type='text' name='name' ></td>
+		<td><input type='text' name='locname' ></td>
 	</tr>
 	<tr><th>추가설명</th>
 		<td><input type='text' name='name_desc' ></td>
@@ -62,9 +62,9 @@ $('.btn-post').on('click', function(){
     }).open();
 });
 $('.btn-fill').click(function(){
-	if( $('[name=name]').val()=='' ){
+	if( $('[name=locname]').val()=='' ){
 		alert('이름을 입력하세요!');
-		$('[name=name]').focus();
+		$('[name=locname]').focus();
 	}
 	if( $('[name=post]').val()=='' ){
 		alert('주소를 입력하세요!');

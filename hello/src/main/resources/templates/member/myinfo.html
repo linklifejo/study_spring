@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{/layouts/layout}"
+>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body layout:fragment="container">
+<h3>내 정보</h3>
+<div>이름: <span th:text="${name}"></span></div>
+<div>이름: [[${name}]]</div>
+</body>
+</html>

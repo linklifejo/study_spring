@@ -19,8 +19,8 @@
 </thead>
 <tbody>
 <c:forEach items='${list}' var='vo'>
-	<tr><td><a href='info.co?id=${vo.id}'>${vo.name }</a></td>
-		<td>${vo.location_name }</td>
+	<tr><td><a href='info.co?id=${vo.id}'>${vo.corname }</a></td>
+		<td>${vo.locname }</td>
 	</tr>
 </c:forEach>
 	

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import location.LocationVO;
+
 @Service
 public class CourseServiceImpl implements CourseService {
 	@Autowired private CourseDAO dao;
@@ -33,5 +35,13 @@ public class CourseServiceImpl implements CourseService {
 	public int course_delete(int id) {
 		return dao.course_delete(id);
 	}
+
+	@Override
+	public List<LocationVO> location_list() {
+		// TODO Auto-generated method stub
+		return dao.location_list();
+	}
+
+
 
 }

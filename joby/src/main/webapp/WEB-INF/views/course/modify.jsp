@@ -16,7 +16,7 @@
 		<col>
 	</colgroup>
 	<tr><th>코스명</th>
-		<td><input type='text' name='name' value='${vo.name }'></td>
+		<td><input type='text' name='corname' value='${vo.corname }'></td>
 	</tr>
 	<tr><th>구분</th>
 		<td>
@@ -26,8 +26,14 @@
 			<label><input type='radio' checked name='type' value='4'>C코스</label>
 		</td>
 	</tr>
-	<tr><th>산코드</th>
-		<td><input type='text' name='location_id' value='${vo.location_id }'></td>
+	
+	<tr><th>산 선택</th>
+	<td><select class='w-px120' name='viewType'>
+		<c:forEach items="${list}" var="vo">
+		<option value='vo.location_id'>${vo.locname}</option>
+		</c:forEach>
+		</select>
+	</td>
 	</tr>
 	</table>
 	<input type='hidden' name='id' value='${vo.id}'>
@@ -40,7 +46,7 @@
 
 <script>
 function fn_delete(){
-	if( confirm('[ ${vo.name} ] 정말 삭제?') ){
+	if( confirm('[ ${vo.corname} ] 정말 삭제?') ){
 	 	location.href='delete.co?id=${vo.id}'
 	}
 }
