@@ -9,7 +9,7 @@
 <body>
 <h3>탐방 목록</h3>
 
-<form method='post' action='list.bo'>
+<form method='post' action='list.go'>
 <div id='list-top' class='w-px1200'>
 <ul>
 	<li><select name='search' class='w-px100'>

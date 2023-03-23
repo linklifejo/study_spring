@@ -211,9 +211,9 @@ public class GoneController {
 						, GonePageVO page) {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
-		String id = "1111";
+		String id = "linklife";
 		map.put("id", id);		
-		map.put("pw", "1111");
+		map.put("pw", "456852aa**");
 		String salt = member.member_salt(id);
 		map.put("pw", common.getEncrypt(map.get("pw"), salt) );
 		
@@ -221,7 +221,7 @@ public class GoneController {
 		//session.setAttribute("loginInfo", vo);
 		//-----------------------------------------
 		
-		session.setAttribute("category", "bo");
+		session.setAttribute("category", "go");
 		//DB에서 방명록 목록을 조회해온다
 		page = service.gone_list(page);		
 		//화면에 출력할 수 있도록 Model에 담는다

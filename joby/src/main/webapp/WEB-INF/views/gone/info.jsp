@@ -42,7 +42,7 @@ table td { text-align: left; }
 	<c:forEach items='${vo.fileInfo}' var='f'>
 	<div class='align'>
 		<span>${f.filename}
-<%-- 			<a href='download.bo?id=${f.id}'><i class="font-img-b fa-solid fa-file-arrow-down"></i></a> --%>
+<%-- 			<a href='download.go?id=${f.id}'><i class="font-img-b fa-solid fa-file-arrow-down"></i></a> --%>
 			<a class='download' data-file='${f.id}'><i class="font-img-b fa-solid fa-file-arrow-down"></i></a>
 		</span>
 		<span class='preview'></span>

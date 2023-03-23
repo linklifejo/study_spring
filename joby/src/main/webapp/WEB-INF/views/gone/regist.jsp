@@ -8,15 +8,25 @@
 </head>
 <body>
 <h3>탐방 글쓰기</h3>
-<form method='post' enctype='multipart/form-data' action='insert.bo'>
+<form method='post' enctype='multipart/form-data' action='insert.go'>
 <input type='hidden' name='writer' value='${loginInfo.id}'>
 <table class='w-px1200'>
 <tr><th class='w-px140'>제목</th>
 	<td><input type='text' name='title' title='제목' class='chk full'></td>
 </tr>
+<tr><th class='w-px140'>회원코드</th>
+	<td><input type='text' name='member_id' member_id='회원코드' class='chk full'></td>
+</tr>
+<tr><th class='w-px140'>산코드</th>
+	<td><input type='number' name='location_id' location_id='산코드' class='chk full'></td>
+</tr>
+<tr><th class='w-px140'>코스코드</th>
+	<td><input type='number' name='course_id' course_id='코스코드' class='chk full'></td>
+</tr>
 <tr><th>내용</th>
 	<td><textarea name='content' title='내용' class='chk full'></textarea> </td>
 </tr>
+
 <tr><th>첨부파일</th>
 	<td class='txt-left'>
 		<div class='align'>

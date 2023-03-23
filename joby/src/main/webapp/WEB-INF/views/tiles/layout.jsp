@@ -10,6 +10,9 @@
 <c:when test="${category eq 'hr'}"><c:set var='title' value='사원관리'/></c:when>
 <c:when test="${category eq 'no'}"><c:set var='title' value='공지사항'/></c:when>
 <c:when test="${category eq 'bo'}"><c:set var='title' value='방명록'/></c:when>
+<c:when test="${category eq 'lo'}"><c:set var='title' value='전국산정보'/></c:when>
+<c:when test="${category eq 'co'}"><c:set var='title' value='코스정보'/></c:when>
+<c:when test="${category eq 'go'}"><c:set var='title' value='탐방정보'/></c:when>
 <c:when test="${category eq 'da'}"><c:set var='title' value='공공데이터'/></c:when>
 <c:when test="${category eq 'vi'}"><c:set var='title' value='시각화'/></c:when>
 <c:when test="${category eq 'changepw'}"><c:set var='title' value='비밀번호변경'/></c:when>

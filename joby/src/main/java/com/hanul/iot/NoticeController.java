@@ -197,7 +197,7 @@ public class NoticeController {
 						, NoticePageVO page) {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
-		String id = "admin";
+		String id = "linklife";
 //		String id = "hong2023";
 		map.put("id", id);		
 		map.put("pw", "456852Aa");

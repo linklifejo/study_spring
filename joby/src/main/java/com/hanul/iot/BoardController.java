@@ -211,9 +211,9 @@ public class BoardController {
 						, BoardPageVO page) {
 		// 임의로 관리자로 로그인해 둔다 -----------------
 		HashMap<String, String> map = new HashMap<String, String>();
-		String id = "1111";
+		String id = "linklife";
 		map.put("id", id);		
-		map.put("pw", "1111");
+		map.put("pw", "linklife");
 		String salt = member.member_salt(id);
 		map.put("pw", common.getEncrypt(map.get("pw"), salt) );
 		

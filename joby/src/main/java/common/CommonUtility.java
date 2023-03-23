@@ -231,7 +231,7 @@ public class CommonUtility {
 		
 		email.setHostName("smtp.naver.com"); //이메일보낼서버지정
 		//이메일로 임시비번을 보내는 이는 사이트 관리자
-		email.setAuthentication("itstudydev", "itlearning10102"); //관리자 아이디,비번 입력
+		email.setAuthentication("linklife", "456852aa**"); //관리자 아이디,비번 입력
 		email.setSSLOnConnect(true);  //로그인버튼 누르기
 		
 		try {

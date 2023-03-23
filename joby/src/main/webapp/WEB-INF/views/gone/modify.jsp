@@ -68,7 +68,7 @@ $('#cancel').click(function(){
 });
 
 $('#save').on('click', function(){
-	if( emptyCheck() ) $('form').attr('action', 'update.bo').submit();
+	if( emptyCheck() ) $('form').attr('action', 'update.go').submit();
 });
 </script>
 </body>
