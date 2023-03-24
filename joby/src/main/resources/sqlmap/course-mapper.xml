@@ -6,14 +6,14 @@
 
 <!-- 신규코스정보 삽입저장 -->
 <insert id='insert'>
-insert into course(corname, type, location_id)
-values (#{corname}, #{type}, #{location_id})
+insert into course(couname, type, location_id)
+values (#{couname}, #{type}, #{location_id})
 </insert>
 
 <!-- 해당코스정보 수정저장 -->
 <update id='update'>
 update course
-set corname = #{corname}, type = #{type}, location_id = #{location_id}
+set couname = #{couname}, type = #{type}, location_id = #{location_id}
 where id = #{id}
 </update>
 
@@ -33,7 +33,7 @@ where c.id = #{id}
 <select id='list' resultType='course.CourseVO'>
 select c.*, locname
 from course c inner join location l on c.location_id = l.id
-order by corname
+order by couname
 </select>
 <!-- 산정보목록조회 -->
 <select id='loc_list' resultType='location.LocationVO'>

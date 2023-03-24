@@ -16,7 +16,7 @@
 		<col>
 	</colgroup>
 	<tr><th>코스명</th>
-		<td><input type='text' name='corname' value='${vo.corname }'></td>
+		<td><input type='text' name='couname' value='${vo.couname }'></td>
 	</tr>
 	<tr><th>구분</th>
 		<td>

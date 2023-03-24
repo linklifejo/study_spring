@@ -9,22 +9,31 @@
 <body>
 <h3>탐방 글쓰기</h3>
 <form method='post' enctype='multipart/form-data' action='insert.go'>
-<input type='hidden' name='writer' value='${loginInfo.id}'>
+<input type='hidden' name='member_id' value='${loginInfo.id}'>
 <table class='w-px1200'>
 <tr><th class='w-px140'>제목</th>
 	<td><input type='text' name='title' title='제목' class='chk full'></td>
 </tr>
-<tr><th class='w-px140'>회원코드</th>
-	<td><input type='text' name='member_id' member_id='회원코드' class='chk full'></td>
+
+<tr><th>산 선택</th>
+	<td><select name='location_id' class='w-px300'>
+		<c:forEach items='${locations}' var='l'>		
+		<option value='${l.location_id}'>${l.locname }</option>
+		</c:forEach>		
+		</select>
+	</td>
 </tr>
-<tr><th class='w-px140'>산코드</th>
-	<td><input type='number' name='location_id' location_id='산코드' class='chk full'></td>
-</tr>
+
 <tr><th class='w-px140'>코스코드</th>
 	<td><input type='number' name='course_id' course_id='코스코드' class='chk full'></td>
 </tr>
-<tr><th>내용</th>
-	<td><textarea name='content' title='내용' class='chk full'></textarea> </td>
+<tr><th>코스 선택</th>
+	<td><select name='course_id' class='w-px300'>
+		<c:forEach items='${courses}' var='c'>		
+		<option value='${c.course_id}'>${c.couname }</option>
+		</c:forEach>		
+		</select>
+	</td>
 </tr>
 
 <tr><th>첨부파일</th>

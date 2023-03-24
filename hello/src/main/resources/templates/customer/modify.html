@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/layout}" >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body layout:fragment="container">
+<h3>고객정보수정</h3>
+	<form method="post" th:action='@{/customer/update}'>
+	<table class='w-px600'>
+	<colgroup>
+		<col width="140px">
+		<col>
+	</colgroup>
+	<tr><th>고객명</th>
+		<td><input type='text' name='name' th:value='${vo.name }'></td>
+	</tr>
+	<tr><th>성별</th>
+		<td>
+			<label><input type='radio' name='gender' th:checked="${vo.gender eq '남'}" value='남'>남</label>
+			<label><input type='radio' name='gender' th:attr="checked=${vo.gender == '여'}" value='여'>여</label>
+		</td>
+	</tr>
+	<tr><th>이메일</th>
+		<td><input type='text' name='email' th:value='${vo.email }'></td>
+	</tr>
+	<tr><th>전화번호</th>
+		<td><input type='text' name='phone' th:value='${vo.phone }'></td>
+	</tr>
+	</table>
+	<input type='hidden' name='cid' th:value='${vo.cid}'>
+	</form>
+
+	<div class='btnSet'>
+		<a class='btn-fill' onclick="$('form').submit()">저장</a>
+		<a class='btn-empty' th:href='@{ /customer/info/{id} ( id=${vo.cid} ) }'>취소</a>
+	</div>
+</body>
+</html>

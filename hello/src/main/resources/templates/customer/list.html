@@ -6,9 +6,22 @@
 </head>
 <body layout:fragment="container">
 <h3>고객목록</h3>
-<div class='btnSet'>
-	<a href='new.cu' class='btn-fill'>신규고객등록</a>
+<form method="post" th:action="@{/customer/list}">
+<div id='list-top' class='w-px600'>
+	<ul >
+		<li>고객명</li>
+		<li><input type='text' name='name' class='w-px120' th:value="${name}"></li>
+		<li><a class='btn-fill' onclick="$('form').submit()">검색</a></li>
+	</ul>
+	<ul>
+		<li><a th:href='@{/customer/new}' class='btn-fill'>신규고객등록</a></li>
+	</ul>
 </div>
+</form>
+
+<!-- <div class='btnSet'> -->
+<!-- 	<a th:href='@{/customer/new}' class='btn-fill'>신규고객등록</a> -->
+<!-- </div> -->
 <table class='w-px600 tb-list'>
 <thead>
 	<tr><th class='w-px140'>고객명</th>
@@ -17,10 +30,15 @@
 	</tr>
 </thead>
 <tbody>
-
-	<tr><td><a href=''>${vo.name }</a></td>
-		<td>${vo.email }</td>
-		<td>${vo.phone }</td>
+	<tr th:each="vo : ${list}">
+		<!--       jsp표현방식  thymeleaf표현방식
+		파라미터사용:info?id=1   info(id=값)  
+		경로형태사용:info/1      info/{id}(id=값)
+		-->
+<!-- 		<td><a th:href='@{/customer/info(id=${vo.cid})}'>[[ ${vo.name } ]]</a></td>   -->
+		<td><a th:href='@{/customer/info/{id}(id=${vo.cid})}'>[[ ${vo.name } ]]</a></td>  
+		<td>[[ ${vo.email } ]]</td>
+		<td th:text="${vo.phone }"></td>
 	</tr>
 	
 </tbody>

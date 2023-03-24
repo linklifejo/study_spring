@@ -15,7 +15,7 @@
 		<col>
 	</colgroup>
 	<tr><th>코스명</th>
-		<td><input type='text' name='corname' ></td>
+		<td><input type='text' name='couname' ></td>
 	</tr>
 	<!--1: 위험 2: A코스 3: B코스 4: C코스 -->
 	<tr><th>구분</th>

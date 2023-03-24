@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layouts/layout}" >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body layout:fragment="container">
+<h3>고객정보</h3>
+	<table class='w-px600'>
+	<colgroup>
+		<col width="140px">
+		<col>
+	</colgroup>
+	<tr><th>고객명</th>
+		<td th:text="${vo.name }"></td>
+	</tr>
+	<tr><th>성별</th>
+		<td>[[ ${vo.gender } ]]</td>
+	</tr>
+	<tr><th>이메일</th>
+		<td>[[ ${vo.email } ]]</td>
+	</tr>
+	<tr><th>전화번호</th>
+		<td>[[${vo.phone }]]</td>
+	</tr>
+	</table>
+
+<!-- modify?id=1&pw=a   modify( id=1, pw=a )  -->
+	<div class='btnSet'>
+		<a class='btn-fill' th:href='@{/customer/list}'>고객목록</a>
+		<a class='btn-fill' th:href='@{/customer/modify( id=${vo.cid} )}'>정보수정</a>
+<!-- 		<a class='btn-fill' th:href='@{/customer/modify( id=${vo.id}, name=${vo.name} )}'>정보수정</a> -->
+		<a class='btn-empty' onclick='fn_delete()'>정보삭제</a>
+	</div>
+<script th:inline="javascript">
+function fn_delete(){
+	if( confirm('정말 삭제?') ){
+		location = /*[[  @{/customer/delete ( id=${vo.cid} ) }  ]]*/"";
+	}
+}
+</script>	
+</body>
+</html>

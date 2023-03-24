@@ -15,7 +15,7 @@
 		<col>
 	</colgroup>
 	<tr><th>코스명</th>
-		<td>${vo.corname }</td>
+		<td>${vo.couname }</td>
 	</tr>
 	<tr><th>구분</th>
 		<td>${vo.type }</td>
@@ -33,7 +33,7 @@
 
 <script>
 function fn_delete(){
-	if( confirm('[ ${vo.corname} ] 정말 삭제?') ){
+	if( confirm('[ ${vo.couname} ] 정말 삭제?') ){
 	 	location.href='delete.co?id=${vo.id}'
 	}
 }

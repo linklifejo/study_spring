@@ -19,7 +19,7 @@
 </thead>
 <tbody>
 <c:forEach items='${list}' var='vo'>
-	<tr><td><a href='info.co?id=${vo.id}'>${vo.corname }</a></td>
+	<tr><td><a href='info.co?id=${vo.id}'>${vo.couname }</a></td>
 		<td>${vo.locname }</td>
 	</tr>
 </c:forEach>
